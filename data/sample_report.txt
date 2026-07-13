@@ -1,10 +1,17 @@
-Abstimmungsergebnisse zur Hauptversammlung
-der ElringKlinger AG vom 30. Mai 2008
-Tagesordnungs- Stimm- Ja- Stimm- Nein-
-punkt berechtigte Stimmen Enthaltungen Stimmen
-Präsenz
-TOP 2 15.550.000 15.546.981 2.709 310
-TOP 3 15.550.000 15.461.671 87.569 760
-TOP 4 4.081.812 3.974.205 87.469 20.138
-TOP 5 15.550.000 15.546.022 2.604 1.374
-TOP 6 15.550.000 15.546.657 1.962 1.381
+Wirecard AG
+Ordentliche Hauptversammlung, München 24. Juni 2008
+Abstimmungsergebnisse zu den Tagesordnungspunkten 2-12
+Präsenz des Grundkapitals: 62,23 Prozent
+Präsenz Nein Enthaltung Zustimmung
+in Prozent
+TOP 2 50.676.591 21.166 140.550 99,96%
+TOP 3 44.686.845 16.003 1.324.767 99,96%
+TOP 4 48.389.618 15.953 1.324.767 99,97%
+TOP 5 50.676.591 16.791 141.100 99,97%
+TOP 6 50.676.591 17.607 142.050 99,97%
+TOP 7 50.676.591 24.655.002 140.686 51,21%
+TOP 8 50.676.591 3.855.594 140.400 92,37%
+TOP 9 50.676.591 16.341 141.908 99,97%
+TOP 10 50.676.591 24.741 141.218 99,95%
+TOP 11 50.676.591 5.726.410 141.118 88,67%
+TOP 12 50.676.591 770.841 818 98,48%
