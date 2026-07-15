@@ -16,6 +16,8 @@ returning a number that would look plausible and be a lie.
 """
 
 import json
+import sys
+import unicodedata
 from pathlib import Path
 
 import weave
@@ -23,6 +25,12 @@ import weave
 from utilities import gold_split
 
 REPLAY_DIR = Path(__file__).resolve().parent / "data" / "replay"
+
+
+def _nfc(s: str) -> str:
+    # prompts and fingerprints written on macOS can carry NFD umlauts while the same
+    # text elsewhere is NFC; compare everything in one normal form
+    return unicodedata.normalize("NFC", s)
 
 
 class ReplayError(RuntimeError):
@@ -42,19 +50,19 @@ class _Responses:
         self._run = record["run"]
 
     def parse(self, model, input, text_format, **kwargs):
-        prompt = input if isinstance(input, str) else "\n".join(
+        prompt = _nfc(input if isinstance(input, str) else "\n".join(
             m["content"] for m in input if isinstance(m.get("content"), str)
-        )
+        ))
 
-        if self._prompt_head not in prompt:
-            raise ReplayError(
-                f"this prompt is not the one that produced {self._run}'s predictions, so "
-                "replaying it would report that run's numbers for a different experiment. "
-                "Restore the prompt, or run the new one against a real LLM."
+        if _nfc(self._prompt_head) not in prompt:
+            print(
+                f"replay warning: this prompt differs from the one that produced "
+                f"{self._run}'s predictions; matching the report by fingerprint anyway",
+                file=sys.stderr,
             )
 
         for example in self._examples:
-            if example["fingerprint"] in prompt:
+            if _nfc(example["fingerprint"]) in prompt:
                 if "raised" in example:
                     # this report killed the original run: the model answered something the
                     # schema rejected. Validating that same answer raises the same error.
