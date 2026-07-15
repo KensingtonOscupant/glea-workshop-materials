@@ -1,0 +1,721 @@
+{
+  "run": "eval-2025-08-02-gentle-dusk",
+  "replay_level": "client",
+  "split": "train",
+  "model_id": "gpt-4.1-nano_using_base_prompt",
+  "llm_name": "gpt-4.1-nano",
+  "note": null,
+  "scores": {
+    "accuracy": 0.6,
+    "selective_accuracy": 0.625,
+    "coverage": 0.96,
+    "correct": 60,
+    "wrong": 36,
+    "abstain": 4,
+    "model_latency_s": 2.5310029411315917
+  },
+  "system_prompt": "Du bist ein hilfreicher Assistent, der Hauptversammlungsbeschlüsse auswertet.",
+  "base_prompt": "Im folgenden erhältst du einen Hauptversammlungsbeschluss. \n\nIn der Regel enthält der Beschluss eine Angabe darüber, wie viel Prozent des Grundkapitals auf der Hauptversammlung vertreten waren. Extrahiere diese Prozentzahl. \n\nWenn du dir unsicher bist, antworte mit -1. \n\nBeschluss: {report}\n",
+  "examples": [
+    {
+      "file_path": "data/Praesenzen_hv-info/HORNBACH Holding AG & Co. KGaA-5703/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 08.07.16.pdf",
+      "label_value": 75.62,
+      "label_present": true,
+      "label_value_llm_output": 75.61,
+      "fingerprint": "['OOOOrrrrddddeeeennnnttttlllliiiicccchhhheeee HHHHaaaauuuuppppttttvvvveeeerrrrssssaaaammmmmmmmlllluuuunnnngggg\\nddddeeeerrrr HHHHOOOORRRRNNNNBBBBAAAACCCCHHHH HHHHoooollllddddiiiinnnngggg AAAAGGGG &&&& CCCCoooo.... KKKKGGGGaaaaAAAA\\n8888.... JJJJuuuulllliiii 2222000011116666,,,, LLLLaaaannnnddddaaaa"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Merck KGaA-15073/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 28.03.08.pdf",
+      "label_value": 54.96,
+      "label_present": true,
+      "label_value_llm_output": 54.96,
+      "fingerprint": "['MERCK KGaA\\nSummenblatt zum Teilnehmerverzeichnis\\nzur ordentlichen Hauptversammlung am 28.03.2008\\nAbstimmpräsenz\\nAnwesend sind 651 Kommanditaktionäre und Aktionärsvertreter.\\nSie vertreten 35.510.199 Aktien.\\nAusgehend von insgesamt 64.615.126 Aktien entspricht dies einer\\nQuote von 54,96 v.H.\\"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Schuler AG-15248/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 18.04.12.pdf",
+      "label_value": 70.85,
+      "label_present": true,
+      "label_value_llm_output": 70.85,
+      "fingerprint": "['Schuler Aktiengesellschaft, Göppingen\\nOrdentliche Hauptversammlung am 18.04.2012\\nAbstimmungsergebnis - Übersicht\\nVom Grundkapital der Gesellschaft in Höhe von 77.196.168,40 Euro, eingeteilt in 29.690.834 Stückaktien, waren zur\\nAbstimmung 21.035.548 Stückaktien mit ebenso vielen Stimmen vertret"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Adler Real Estate AG-1215/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.05.18.pdf",
+      "label_value": 52.01,
+      "label_present": true,
+      "label_value_llm_output": 52.01,
+      "fingerprint": "['Übersichtsliste\\nADLER Real Estate AG\\nOrdentliche Hauptversammlung am 30.05.2018\\nIn % des\\nsatzungs-\\nGültig gemäßen\\nabgegebe Grund- Beschluss-\\nTagesordnungspunkt Stimmen kapitals JA-Stimmen In % NEIN-Stimmen In % vorschlag\\n2a Beschlussfassung über die Entlastung der Mitglieder 29.845.064 51,"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Ströer SE & Co. KGaA-15352/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.06.15.pdf",
+      "label_value": 85.89,
+      "label_present": true,
+      "label_value_llm_output": 85.0,
+      "fingerprint": "['Ordentliche Hauptversammlung\\n30. Juni 2015\\nAbstimmung | Ergebnisse', 'Punkt 2 der Tagesordnung\\nBeschlussfassung über die Verwendung des Bilanzgewinns\\nAbgegebene gültige Stimmen: 41.973.990 (85,89 % des Grundkapitals)\\nStimmen Prozent\\nJA-Stimmen 41.973.988 99,99 %\\nNEIN-Stimmen 2 0,01 %\\n2', '"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Sixt SE-15267/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.06.13.pdf",
+      "label_value": 47.0,
+      "label_present": true,
+      "label_value_llm_output": 47.0,
+      "fingerprint": "['Sixt AG, Pullach bei München\\nOrdentliche Hauptversammlung am 20.06.2013\\nAbstimmungsergebnis - Übersicht\\nTOP 2 Beschlussfassung über die Verwendung des Bilanzgewinns - angenommen\\n22.586.544 Aktien, für die gültige Stimmen abgegeben wurden (= 47,00 % des Grundkapitals)\\n22.585.612 Ja-Stimmen 99,"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Mercedes-Benz Group AG-14716/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 01.04.15.pdf",
+      "label_value": 36.15,
+      "label_present": true,
+      "label_value_llm_output": 36.15,
+      "fingerprint": "['Abstimmungsergebnisse der Hauptversammlung der Daimler AG am 1. April 2015 in Berlin\\n2. Präsenz\\n(Präsenz Abstimmungsgang TOP 2 - 10) Grundkapital 3.069.671.971,76 EUR\\nAusgegebene Aktien 1.069.837.447 St.\\nAnwesende Aktien 381.837.220 St.\\nAnteil am Grundkapital 35,69 %\\nBriefwahlstimmen 4.931.2"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Branicks Group AG-14521/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 03.07.13.pdf",
+      "label_value": 73.61,
+      "label_present": true,
+      "label_value_llm_output": 73.61,
+      "fingerprint": "['DIC Asset AG\\nFrankfurt am Main\\nISIN: DE 0005098404 (WKN: 509 840)\\nAbstimmungsergebnisse der ordentlichen Hauptversammlung 2013 vom 3. Juli 2013 in Frankfurt am Main\\nTagesordnungspunkt Abgegebene Anteil der Stimm- Nein- Ja- Anteil Ergebnis\\n(Stimmabschnitt) gültige gültigen enthal- Stimmen Stim"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/MVV Energie AG-15290/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.03.12.pdf",
+      "label_value": 89.51,
+      "label_present": true,
+      "label_value_llm_output": 89.51,
+      "fingerprint": "['MVV Energie AG, Mannheim\\nOrdentliche Hauptversammlung am 16.03.2012\\nAbstimmungsergebnis - Übersicht\\nTOP 2 Beschlussfassung über die Verwendung des Bilanzgewinns\\n58.990.002 Aktien, für die gültige Stimmen abgegeben wurden (= 89,51 % des Grundkapitals)\\n58.988.675 Ja-Stimmen 99,99 %\\n1.327 Nein-"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/LPKF Laser & Electronics AG-12767/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.05.13.pdf",
+      "label_value": 29.88,
+      "label_present": true,
+      "label_value_llm_output": 29.88,
+      "fingerprint": "['LPKF Laser & Electronics AG\\nAbstimmungsergebnisse der ordentlichen Hauptversammlung am 23.05.2013 in Hannover\\nTagesordnungspunkte Gültige in % Ja Stimmen in % Nein Enthaltung\\nStimmen vom GK Stimmen\\nTOP 2 Verwendung des Bilanzgewinns 3.326.604 29,88% 3.326.604 100,00% 0 0\\nTOP 3 Entlastung der "
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/MAN SE-14497/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.13.pdf",
+      "label_value": 78.76,
+      "label_present": true,
+      "label_value_llm_output": 78.68,
+      "fingerprint": "['MAN SE\\n133. Ordentliche Hauptversammlung am 06. Juni 2013\\nAbstimmungsergebnisse Seite 1\\nVon den insgesamt ausgegebenen 147.040.000 Stückaktien der Gesellschaft sind\\nzum Zeitpunkt der Einberufung dieser Hauptversammlung ausschließlich alle\\n140.974.350 Stammaktien stimmberechtigt.\\nTOP 1 Vorlag"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/SGL Carbon SE-15268/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 27.04.07.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": 99.86,
+      "fingerprint": "['SGL Carbon AG\\nOrdentliche Hauptversammlung am 27.04.2007\\nIch stelle fest und verkünde,\\n2\\ndass der Vorschlag der Verwaltung zu\\nTagesordnungspunkt 2\\nBeschlussfassung über die Verwendung des Bilanzgewinns\\n- wie im elektronischen Bundesanzeiger veröffentlicht -\\nbei einer Präsenz von\\n27.838.33"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Wirecard AG-11616/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 24.06.08.pdf",
+      "label_value": 62.23,
+      "label_present": true,
+      "label_value_llm_output": 62.23,
+      "fingerprint": "['Wirecard AG\\nOrdentliche Hauptversammlung, München 24. Juni 2008\\nAbstimmungsergebnisse zu den Tagesordnungspunkten 2-12\\nPräsenz des Grundkapitals: 62,23 Prozent\\nPräsenz Nein Enthaltung Zustimmung\\nin Prozent\\nTOP 2 50.676.591 21.166 140.550 99,96%\\nTOP 3 44.686.845 16.003 1.324.767 99,96%\\nTOP "
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/CompuGroup Medical SE & Co. KGaA-11297/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.15.pdf",
+      "label_value": 78.46,
+      "label_present": true,
+      "label_value_llm_output": 78.46,
+      "fingerprint": "['Ordentliche Hauptversammlung der CompuGroup Medical AG\\nam 20. Mai 2015 in Koblenz\\nAbstimmungsergebnis - Übersicht\\nTOP 2 Beschlussfassung über die Verwendung des Bilanzgewinns angenommen\\n41.756.918 Aktien, für die gültige Stimmen abgegeben wurden (= 78,462 % des Grundkapitals)\\n41.755.683 Ja-St"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Südzucker AG-15312/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.07.15.pdf",
+      "label_value": 74.43,
+      "label_present": true,
+      "label_value_llm_output": 74.35,
+      "fingerprint": "['Südzucker AG, Mannheim\\nOrdentliche Hauptversammlung am 16.07.2015\\nAbstimmungsergebnis - Übersicht\\nTOP 2 Verwendung des Bilanzgewinns - angenommen\\n151.818.378 Aktien, für die gültige Stimmen abgegeben wurden (= 74,35 % des Grundkapitals)\\n151.558.329 Ja-Stimmen 99,83 %\\n260.049 Nein-Stimmen 0,1"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/GFT Technologies SE-14835/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.06.15.pdf",
+      "label_value": 51.19,
+      "label_present": true,
+      "label_value_llm_output": 51.19,
+      "fingerprint": "['GFT Technologies AG, Stuttgart\\nOrdentliche Hauptversammlung am 23.06.2015\\nAbstimmungsergebnis - Übersicht\\nTOP 2 Beschlussfassung über die Verwendung des Bilanzgewinns für das Geschäftsjahr 2014 -\\nangenommen\\n13.475.159 Aktien, für die gültige Stimmen abgegeben wurden (= 51,19 % des Grundkapita"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/FUCHS SE-14833/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.11.pdf",
+      "label_value": 80.8,
+      "label_present": true,
+      "label_value_llm_output": -1.0,
+      "fingerprint": "['Präsenz bei der Hauptversammlung 2011\\nVorzugsaktien: 8,9%\\nStammaktien: 80,8%\\nAbstimmungsergebnisse zu den Tageordnungspunkten der ordentlichen\\nHauptversammlung\\nPunkt 2: 100%\\nPunkt 3: 100%\\nPunkt 4: mit nahezu 100%\\nPunkt 5.1: mit nahezu 100%\\nPunkt 5.2: mit nahezu 100%\\nPunkt 6: 98,91%\\nPunk"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/GfK SE-14857/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.05.07.pdf",
+      "label_value": 80.18,
+      "label_present": true,
+      "label_value_llm_output": 80.18,
+      "fingerprint": "['GfK Aktiengesellschaft\\nTagesordnungspunkt Ja-Stimmen Nein-Stimmen\\nabsolut in % absolut in %\\n2. Beschlussfassung über die Verwendung des Bilanzgewinns 27.380.227 96,18 1.087.563 3,82\\n3. Beschlussfassung über die Entlastung der Mitglieder des Vorstands für das Geschäftsjahr 2006 27.890.428 100,0"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/adidas AG-14457/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.05.09.pdf",
+      "label_value": 48.79,
+      "label_present": true,
+      "label_value_llm_output": 48.79,
+      "fingerprint": "['adidas AG\\nHauptversammlung am 07.05.2009\\nPräsenz: 94.410.351 Stückaktien = 48,79% des stimmberechtigten Grundkapitals\\nStimmen\\nTOP 2: Beschlussfassung über die Verwendung des Bilanzgewinns\\nJA = 93.473.712\\nNEIN = 803.263\\nTOP 3: Beschlussfassung über die Entlastung des Vorstands für das\\nGesch"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Jungheinrich AG-14973/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 15.06.10.pdf",
+      "label_value": 100.0,
+      "label_present": true,
+      "label_value_llm_output": 100.0,
+      "fingerprint": "['Abstimmungsergebnisse der ordentlichen HV Jungheinrich AG am 15.06.10\\nauch in diesem Jahr waren wiederum 100% des stimmberechtigten Stammkapitals auf unserer\\nHauptversammlung vertreten und sämtlichen Beschlussvorschlägen der Verwaltung zu den\\neinzelnen Tagesordnungspunkten, zu denen eine Beschl"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/DMG MORI AG-14860/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 13.05.11.pdf",
+      "label_value": 44.41,
+      "label_present": true,
+      "label_value_llm_output": 44.41,
+      "fingerprint": "['Abstimmungsergebnisse_HV_2011_de:HV 17.05.2011 14:43 Uhr Seite 2\\ngildemeister\\nAktiengesellschaft Bielefeld\\nisin de0005878003\\n-Code:\\n(wkn) 587800\\nWertpapierkennnummer :\\n109. ordentliche Hauptversammlung\\nVeröffentlichung der Abstimmungsergebnisse\\n(§ 130 Abs. 6 AktG)', 'Abstimmungsergebnisse"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/SAP SE-15226/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 25.05.11.pdf",
+      "label_value": 65.5,
+      "label_present": true,
+      "label_value_llm_output": 65.0,
+      "fingerprint": "['CORPORATE GOVERNANCE\\nABSTIMMUNGSERGEBNISSE 2011\\nOrdentliche Hauptversammlung SAP AG am 25.05.2011 in Mannheim\\nAktien, für die\\ngültige\\nJa- Nein-\\nTop Stimmen Enthaltungen\\nStimmen Stimmen\\nabgegeben\\nwurden\\n2 Beschlussfassung über die Verwendung des 804.056.010 803.970.764 85.246 391.251\\nBil"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/SKW Stahl-Metallurgie Holding AG-15858/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 09.06.10.pdf",
+      "label_value": 26.25,
+      "label_present": true,
+      "label_value_llm_output": 26.25,
+      "fingerprint": "['Ordentliche Hauptversammlung der\\nSKW Stahl-Metallurgie Holding AG\\nam 9.6.2010\\nAbstimmung zu TOP 2\\n-Verwendung Bilanzgewinn-\\nDas Ergebnis der Abstimmung zu TOP 2 lautet:\\nBei einer Präsenz von 1.718.061 Aktien, das sind 26,250 % des Grundkapitals,\\nwurden insgesamt 1.715.229 gültige Stimmen ab"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Deutsche Wohnen SE-15679/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 31.05.11.pdf",
+      "label_value": 63.01,
+      "label_present": true,
+      "label_value_llm_output": 63.0,
+      "fingerprint": "['Deutsche Wohnen AG, Frankfurt am Main\\nOrdentliche Hauptversammlung am 31.05.2011\\nAbstimmungsergebnis - Übersicht\\nTOP 2 Beschlussfassung über die Verwendung des Bilanzgewinns des Geschäftsjahres 2010 der Deutsche\\nWohnen AG - angenommen\\n51.563.574 Aktien, für die gültige Stimmen abgegeben wurde"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/q.beyond AG-14536/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 29.05.13.pdf",
+      "label_value": 43.42,
+      "label_present": true,
+      "label_value_llm_output": 43.42,
+      "fingerprint": "['QSC AG - Hauptversammlung 2013\\nAbstimmungsergebnis der ordentlichen Hauptversammlung am 29.05.2013 in Köln\\nGültige in % vom\\nTagesordnungspunkte Ja Stimmen in % Nein Stimmen Ergebnis\\nStimmen GK\\nTOP 2 Verwendung des Bilanzgewinns 53.738.610 43,42% 53.721.695 99,97% 16.915 angenommen\\nTOP 3 Entl"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Vossloh AG-15401/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.05.12.pdf",
+      "label_value": 49.81,
+      "label_present": true,
+      "label_value_llm_output": 49.81,
+      "fingerprint": "['Ordentliche Hauptversammlung der Vossloh AG\\nPräsenz und Abstimmungsergebnisse\\n23. Mai 2012\\n1', 'Vossloh-Hauptversammlung 2012\\nPräsenz\\nGrundkapital 34.042.651,97 €\\nAnzahl Aktien 11.992.761 Stück\\nAnzahl anwesende Aktien 5.974.117 Stück\\nVom Grundkapital 49,81 %\\n2', 'Vossloh-Hauptversammlung "
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/CTS Eventim AG & Co. KGaA-14679/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 15.05.12.pdf",
+      "label_value": 84.1,
+      "label_present": true,
+      "label_value_llm_output": 84.11,
+      "fingerprint": "['Abstimmungsergebnisse zur Hauptversammlung\\nder CTS EVENTIM AG am 15.05.2012 in Bremen\\nGültige Stimmen Ja- Nein- Enth. % Ja-\\nTagesordnungspunkt Stimmen Stimmen Stimmen\\nAnzahl Entspricht % d. vertr.\\nvertretenes Grund-\\nGrundkapital kapitals\\nTOP 2 40.375.141 100,000 40.375.141 0 0 100,000\\nVerw"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/SMT Scharf AG-14804/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 17.04.13.pdf",
+      "label_value": 35.55,
+      "label_present": true,
+      "label_value_llm_output": 35.54,
+      "fingerprint": "['SMT Scharf AG\\nAbstimmungsergebnis der ordentlichen Hauptversammlung am 17.04.2013 in Hamm\\nTagesordnungspunkte Aktien, für die Anteil am Ja in % Enthaltungen Nein in % Beschlussvor-\\ngültige Stimmen Grundkap- schlag\\nabgegeben ital in %\\nworden sind\\nTOP 2 Verwendung des Bilanzgewinns, 1.492.719 "
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/GEA Group AG-14435/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.04.07.pdf",
+      "label_value": 49.49,
+      "label_present": true,
+      "label_value_llm_output": 49.49,
+      "fingerprint": "['Presse Information\\nPress Release\\nHauptversammlung der GEA Group\\nBochum, 30. April 2007 – Auf der Hauptversammlung der GEA Group Aktiengesellschaft, auf der 49,49\\nProzent des stimmberechtigten Grundkapitals vertreten waren, sind heute die von der Verwaltung\\nvorgeschlagenen Beschlüsse mit große"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Talanx AG-15820/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.05.15.pdf",
+      "label_value": 91.52,
+      "label_present": true,
+      "label_value_llm_output": 91.52,
+      "fingerprint": "['Hauptversammlung 2015\\nHannover, 7. Mai 2015\\nAbstimmungsergebnisse', 'Hauptversammlung 2015 - Abstimmungsergebnisse\\nTOP 2 Beschlussfassung über die Verwendung des Bilanzgewinns\\nZahl der Aktien, für die gültige Stimmen\\n231.354.782\\nabgegeben wurden\\nEntspricht Anteil am Grundkapital 91,5178 %\\n"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/TAG Immobilien AG-15342/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 19.06.15.pdf",
+      "label_value": 74.96,
+      "label_present": true,
+      "label_value_llm_output": 74.96,
+      "fingerprint": "['TAG Immobilien AG, Hamburg\\nOrdentliche Hauptversammlung am 19.06.2015\\nAbstimmungsergebnis - Übersicht\\nTOP 2 Beschlussfassung über die Verwendung des Bilanzgewinns - angenommen\\n99.896.243 Aktien, für die gültige Stimmen abgegeben wurden (= 74,96 % des Grundkapitals)\\n99.895.999 Ja-Stimmen 99,99"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Commerzbank AG-15503/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 15.05.08.pdf",
+      "label_value": 46.04,
+      "label_present": true,
+      "label_value_llm_output": 46.04,
+      "fingerprint": "['/ commerzbank hauptversammlung\\n15. mai 2008 / abstimmungsergebnisse der tagesordnung\\nInsgesamt 302.535.981 Aktien bzw. 46,04% des gezeichneten Kapitals\\nwurden auf der Hauptversammlung vertreten.\\nAntrag auf Einzelentlastung des Aufsichtsrats Zu Tagesordnungspunkt 4:\\nJa-Stimmen: 496.081 = 0,566"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Lanxess AG-14680/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 31.05.07.pdf",
+      "label_value": 57.05,
+      "label_present": true,
+      "label_value_llm_output": 57.05,
+      "fingerprint": "['Abstimmungsergebnisse\\nVom Grundkapital der Gesellschaft in Höhe von 84.620.670,00 Euro, eingeteilt in 84.620.670\\nauf den Inhaber lautende Stückaktien, sind in der Hauptversammlung 48.279.819 Stückaktien\\nmit ebensovielen Stimmen vertreten. Das entspricht 57,05 % des Grundkapitals.\\nTagesordnungs"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Wacker Chemie AG-15868/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.05.12.pdf",
+      "label_value": 73.08,
+      "label_present": true,
+      "label_value_llm_output": 73.08,
+      "fingerprint": "['Wacker Chemie AG, München\\nOrdentliche Hauptversammlung am 16.05.2012\\nAbstimmungsergebnis - Übersicht\\nTOP 2 Beschlussfassung über die Verwendung des Bilanzgewinns - angenommen\\n38.113.424 Aktien, für die gültige Stimmen abgegeben wurden (= 73,08 % des Grundkapitals)\\n37.270.730 Ja-Stimmen 97,79 "
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PSI Software AG-15178/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.05.14.pdf",
+      "label_value": 56.06,
+      "label_present": true,
+      "label_value_llm_output": 55.89,
+      "fingerprint": "['Ordentliche Hauptversammlung 2014\\nam 6. Mai 2014 in Berlin\\nAbstimmungsergebnisse\\nIn % des\\nStimm- Abgegebene In % des\\nsatzungs- Ent- JA- NEIN- Beschluss-\\nTagesordnungspunkt berechtigte gültige JA- und vertretenen % %\\ngemäßen haltungen Stimmen Stimmen vorschlag\\nPräsenz NEIN- Stimmen* Grund- "
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/SMA Solar Technology AG-15665/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 26.05.11.pdf",
+      "label_value": 84.6,
+      "label_present": true,
+      "label_value_llm_output": 84.6,
+      "fingerprint": "['Ordentliche Hauptversammlung am 26. Mai 2011 der SMA Solar Technology AG\\nAbstimmergebnisse\\nTagesordnungspunkte: Grundkapital: 34.700.000 Präsent gesamt: 29.356.061 84,60 %\\nTOP Abstimmpunkt Enthaltungen Gültige Stimmen in% vom GK Nein-Stimmen Nein-% Ja-Stimmen Ja-% Ergebnis\\n2 2 Verwendung des B"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Biotest AG-14587/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.06.pdf",
+      "label_value": 83.46,
+      "label_present": true,
+      "label_value_llm_output": 60.3,
+      "fingerprint": "['Abstimmungsergebnisse der Biotest AG zur Hauptversammlung am 11.05.06\\nPräsenz\\nVertretenes Aktienkapital\\n5.004.216 Stück Stammaktien = EUR 12.810.792,96 = 83,46 % der Stammaktien\\n1.425.391 Stück Vorzugsaktien = EUR 3.649.000,96 = 30,54 % der Vorzugsaktien\\nGesamt\\n6.429.607 Stück = EUR 16.459.7"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Carl Zeiss Meditec AG-3248/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 19.05.09.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": 99.99,
+      "fingerprint": "['Abstimmungsergebnisse Hauptversammlung 2009\\nTagesordnungspunkt Präsenz Ja-Stimmen Nein-Stimmen\\nin Zahl in %\\nTOP 2 – Verwendung Bilanzgewinn für das 65.494.949 65.484.346 99,99 5.400\\nGeschäftsjahr 2007/2008\\nTOP 3 – Entlastung Vorstand 65.494.949 65.446.283 99,94 41.953\\nTOP 4 – Entlastung Aufs"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Heidelberger Druckmaschinen AG-15320/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 24.07.15.pdf",
+      "label_value": 29.64,
+      "label_present": true,
+      "label_value_llm_output": 29.64,
+      "fingerprint": "['Heidelberger Druckmaschinen AG, Wiesloch\\nOrdentliche Hauptversammlung am 24.07.2015\\nAbstimmungsergebnis - Übersicht\\nTOP 2 Beschlussfassung über die Entlastung der Mitglieder des Vorstands - Dr. Gerold Linzbach -\\nangenommen\\n74.423.821 Aktien, für die gültige Stimmen abgegeben wurden (= 28,91 %"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Bechtle AG-2469/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 18.06.13.pdf",
+      "label_value": 74.66,
+      "label_present": true,
+      "label_value_llm_output": 74.66,
+      "fingerprint": "['Ordentliche Hauptversammlung\\nder Bechtle Aktiengesellschaft\\n18.06.2013, Heilbronn\\n- Präsenz und Abstimmungsergebnisse -', 'Präsenz\\nGrundkapital in Euro 21.000.000,00\\nausgegebene Aktien in Stück 21.000.000\\nanwesende Aktien in Stück 15.677.963\\nAnteil am Grundkapital 74,657 %\\nOrdentliche Haup"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/LEG Immobilien AG-15818/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 24.06.15.pdf",
+      "label_value": 57.38,
+      "label_present": true,
+      "label_value_llm_output": 56.0,
+      "fingerprint": "['Abstimmungsergebnisse zur ordentlichen Hauptversammlung\\nder LEG Immobilien AG am 24. Juni 2015 in Düsseldorf\\nAbgegebene In % des\\nBeschluss-\\nTagesordnungspunkt gültige Ja- und gesamten Nein-Stimmen Ja-Stimmen\\nvorschlag\\nNein-Stimmen* Grundkapitals\\nIn Zahl In Zahl In %\\nBeschlussfassung über d"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Delticom AG-14543/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 03.05.11.pdf",
+      "label_value": 68.11,
+      "label_present": true,
+      "label_value_llm_output": 68.0,
+      "fingerprint": "['VERÖFFENTLICHUNG gemäß § 130 AktG\\nOrdentliche Hauptversammlung der Delticom AG stimmt allen\\nBeschlussvorschlägen zu\\nHannover, 3. Mai 2011. Die ordentliche Hauptversammlung der Delticom AG hat allen\\nvorgelegten Beschlussvorschlägen zugestimmt. Getagt wurde unter der Leitung des\\nAufsichtsratsvo"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Heidelberg Materials AG-14438/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 08.05.13.pdf",
+      "label_value": 74.87,
+      "label_present": true,
+      "label_value_llm_output": 74.87,
+      "fingerprint": "['Abstimmungsergebnisse – Hauptversammlung 2013 am 8. Mai 2013\\nBeschlussfassungen Abgegebene In % des Ja-Stimmen Nein-Stimmen Vorschlag\\ngültige satzungsmäßigen\\nStimmen* Grundkapitals\\nTOP 2 Verwendung des Bilanzgewinns 140.374.102 74,87% 140.131.778 99,83% 242.324 0,17% angenommen\\nTOP 3 Entlastu"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/freenet AG-14834/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 08.08.08.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": 64.0,
+      "fingerprint": "['freenet AG, Hamburg\\nOrdentliche Hauptversammlung am 08.08.2008\\nAbstimmungsergebnis zu TOP 2\\nZu Tagesordnungspunkt 2 über die Gewinnverwendung sind für den im\\nelektronischen Bundesanzeiger vom 17.06.2008 veröffentlichten Vorschlag von\\nVorstand und Aufsichtsrat\\nbei 95.915.852 abgegebenen Stimm"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius SE & Co. KGaA-14829/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.12.pdf",
+      "label_value": 75.53,
+      "label_present": true,
+      "label_value_llm_output": 75.0,
+      "fingerprint": "['Abstimmungsergebnisse der ordentlichen Hauptversammlung der Fresenius SE & Co. KGaA am 11. Mai 2012 in Frankfurt/Main\\nGrundkapital der Fresenius SE & Co. KGaA: 163.366.002 Stammaktien\\nJa-Stimmen Nein-Stimmen\\nAnzahl der Aktien, in % der in % der\\nfür die gültige in % vom gültigen ab- gültigen ab"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/TUI AG-14436/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 17.02.10.pdf",
+      "label_value": 68.18,
+      "label_present": true,
+      "label_value_llm_output": 67.0,
+      "fingerprint": "['18.02.2010\\nInvestor Relations > Hauptversammlungen > Hauptversammlung 2010 > Abstimmungsergebnisse\\nAbstimmungsergebnisse\\nHauptversammlung, 17. Februar 2010\\nTagesordnungspunkt Anzahl Anzahl Zustimmung Anzahl Gültige Präsenz\\nJa-Stimmen Nein-Stimmen in % Enthaltungen Stimmmen in %\\n3. Entlastung"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/zooplus SE-14527/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 22.05.12.pdf",
+      "label_value": 75.98,
+      "label_present": true,
+      "label_value_llm_output": 75.98,
+      "fingerprint": "['zooplus AG, München\\nOrdentliche Hauptversammlung am 22.05.2012\\nAbstimmungsergebnis - Übersicht\\nTOP 2 Beschlussfassung über die Entlastung des Vorstands für das Geschäftsjahr 2011 - angenommen\\n4.635.319 Aktien, für die gültige Stimmen abgegeben wurden (= 75,98 % des Grundkapitals)\\n4.635.319 Ja"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Brenntag AG-3955/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 17.06.14.pdf",
+      "label_value": 47.94,
+      "label_present": true,
+      "label_value_llm_output": 47.94,
+      "fingerprint": "['Abstimmungsergebnisse\\n▌ Hauptversammlung am 17. Juni 2014', 'HAUPTVERSAMMLUNG 2014\\nBeschlussfassung über die Verwendung des Bilanzgewinns für das\\nGeschäftsjahr 2013\\nGültige Stimmen: 24.687.364 (47,94 % des Grundkapitals)\\nEnthaltungen 33.782\\nJa-Stimmen 24.687.114 99,999 %\\nNein-Stimmen 250 0,"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Amadeus Fire AG-14519/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 27.05.10.pdf",
+      "label_value": 58.93,
+      "label_present": true,
+      "label_value_llm_output": 58.93,
+      "fingerprint": "['Abstimmungsergebnisse der Hauptversammlung der Amadeus FiRE AG am 27. Mai 2010 in Frankfurt am Main\\nVom Grundkapital in Höhe von EUR 5.198.237, eingeteilt in 5.198.237 auf den Inhaber lautende Stückaktien, waren zur Abstimmung\\n3.063.285 Stückaktien anwesend. Das entspricht einer Präsenz zur Abst"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Deutsche Post AG-14766/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 29.05.13.pdf",
+      "label_value": 45.9,
+      "label_present": true,
+      "label_value_llm_output": 45.9,
+      "fingerprint": "['Abstimmungsergebnisse\\nHauptversammlung Deutsche Post AG\\nJahrhunderthalle Frankfurt am Main\\n29. Mai 2013', 'Abstimmungsergebnis\\nTOP 2 Beschlussfassung über die Verwendung des\\nBilanzgewinns – Verwaltungsvorschlag\\nangenommen\\nDie Abstimmung ergab bei 5 5 4 . 8 7 8 . 2 0 3 Aktien, für die gültig"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RIB Software SE-15740/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 10.06.15.pdf",
+      "label_value": 52.99,
+      "label_present": true,
+      "label_value_llm_output": 100.0,
+      "fingerprint": "['Abstimmungsergebnisse Hauptversammlung\\nder RIB Software AG\\nvom 10. Juni 2015\\nTagesordnungspunkt 2\\nBeschlussfassung über die Verwendung des Bilanzgewinns\\nZahl der Aktien, für die gültige Stimmen abgegeben wurden: 23.031.121\\nAnteil des durch die gültigen Stimmen vertretenen Grundkapitals: 100,"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/KWS SAAT SE & Co. KGaA-15217/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 14.12.06.pdf",
+      "label_value": 74.6,
+      "label_present": true,
+      "label_value_llm_output": 74.6,
+      "fingerprint": "['Abstimmungsergebnisse zur Hauptversammlung\\n14. Dezember 2006\\nTagesordnung Abstimmung Stimmen Stimmberechtigt\\nspunkt:\\nja nein Enthaltung Prozent Stück\\n2. Verwendung Bilanzgewinn 4.923.835 36 0 99,9993% 4.923.871\\n3. Entlastung Vorstand 4.823.785 66 0 99,9986% 4.823.851\\n4. Entlastung Aufsichts"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Indus Holding AG-14954/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 01.07.09.pdf",
+      "label_value": 29.83,
+      "label_present": true,
+      "label_value_llm_output": 29.83,
+      "fingerprint": "['Abstimmungsergebnisse\\nzur ordentlichen Hauptversammlung 01. Juli 2009\\nmit Sitz in Bergisch-Gladbach\\nWertpapier-Kenn-Nummer: 620010 / ISIN: DE0006200108\\nPräsenz:\\nDurch die anwesenden Aktionäre und Aktionärsvertreter wurden von den insgesamt 18.370.033 Stückaktien, in\\ndie das Grundkapital eing"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/McKesson Europe AG-14846/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.05.13.pdf",
+      "label_value": 67.06,
+      "label_present": true,
+      "label_value_llm_output": 67.06,
+      "fingerprint": "['Celesio AG, Stuttgart\\nOrdentliche Hauptversammlung am 16.05.2013\\nAbstimmungsergebnis - Übersicht\\nTOP 2 Beschlussfassung über die Verwendung des Bilanzgewinns des Geschäftsjahrs 2012 - angenommen\\n114.075.180 Aktien, für die gültige Stimmen abgegeben wurden (= 67,06 % des Grundkapitals)\\n114.019"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Vonovia SE-15751/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 09.05.14.pdf",
+      "label_value": 84.95,
+      "label_present": true,
+      "label_value_llm_output": 85.0,
+      "fingerprint": "['Abstimmungsergebnisse zur ordentlichen Hauptversammlung\\nder Deutschen Annington Immobilien SE am 09. Mai 2014 in Düsseldorf\\nAbgegebene In % des\\nBeschluss-\\nTagesordnungspunkt gültige Ja- und gesamten Nein-Stimmen Ja-Stimmen\\nvorschlag\\nNein-Stimmen* Grundkapitals\\nIn Zahl In Zahl In %\\n2 Beschl"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Kabel Deutschland Holding AG-15783/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 09.10.14.pdf",
+      "label_value": 95.85,
+      "label_present": true,
+      "label_value_llm_output": 82.37,
+      "fingerprint": "['Hauptversammlung der\\nKabel Deutschland Holding AG\\nam 9. Oktober 2014 in München\\nAbstimmungsergebnisse\\nErgebnis:\\nAnzahl Aktien, für Anteil des durch\\nBeschluss-\\ndie gültige Stim- die gültigen Stim- NEIN- JA- Zustimmungs-\\nBeschlussfassung vorschlag ge-\\nmen abgegeben men vertretenen Stimmen S"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hawesko Holding AG-14909/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.06.11.pdf",
+      "label_value": 75.43,
+      "label_present": true,
+      "label_value_llm_output": 75.43,
+      "fingerprint": "[\"Hawesko Holding AG - Übersicht Abstimmungsergebnisse Hauptversammlung 20. Juni 2011\\nAktien, für die\\ngültige\\nStimmen\\nabgegeben Anteil am\\nTagesordnungspunkte worden sind Grundkapital Ja-Stimmen in '% Nein-Stimmen in '% Enthaltungen\\n2. Beschlussfassung über die Verwendung des Bilanzgewinns für "
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/ElringKlinger AG-4643/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.05.08.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": 100.0,
+      "fingerprint": "['Abstimmungsergebnisse zur Hauptversammlung\\nder ElringKlinger AG vom 30. Mai 2008\\nTagesordnungs- Stimm- Ja- Stimm- Nein-\\npunkt berechtigte Stimmen Enthaltungen Stimmen\\nPräsenz\\nTOP 2 15.550.000 15.546.981 2.709 310\\nTOP 3 15.550.000 15.461.671 87.569 760\\nTOP 4 4.081.812 3.974.205 87.469 20.138"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/KION GROUP AG-15846/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 12.05.15.pdf",
+      "label_value": 80.44,
+      "label_present": true,
+      "label_value_llm_output": 80.44,
+      "fingerprint": "['ABSTIMMUNGSERGEBNISSE\\nHauptversammlung 2015', 'TAGESORDNUNGSPUNKT 2\\nBeschlussfassung über die Verwendung des Bilanzgewinns für das Geschäftsjahr 2014\\nAnzahl der Aktien, für welche gültige Stimmen\\nabgegeben wurden: 79.556.016 (80,44 % des Grundkapitals)\\nJa-Stimmen\\n79.555.611 100,00 %\\nNein-St"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Sartorius AG-15227/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 18.04.13.pdf",
+      "label_value": 95.19,
+      "label_present": true,
+      "label_value_llm_output": 95.19,
+      "fingerprint": "['Abstimmungsergebnisse\\nTagesordnungspunkt Stimmbe- Abgegebene In % des Nein- Ja- Anteil Ja- und Nein-\\nrechtigte gültige Ja- und stimmberechtigten Stimmen Stimmen Zustimmung in % Stimmen in Bezug\\nPräsenz Nein-Stimmen* Grundkapitals auf das gesamte\\nGrundkapital\\nBeschlussfassung über die Verwendu"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Axel Springer SE-8338/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 24.04.13.pdf",
+      "label_value": 77.49,
+      "label_present": true,
+      "label_value_llm_output": 77.0,
+      "fingerprint": "['Abstimmungsergebnisse\\nder ordentlichen Hauptversammlung der Axel Springer Aktiengesellschaft\\nam 24. April 2013, Berlin\\nDen nachfolgend wiedergegebenen Abstimmungsergebnissen liegen mit Ausnahme von TOP 5 die Beschlussvorschläge der Verwaltung\\nzugrunde, wie sie im Rahmen der am 13. März 2013 im"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/CANCOM SE-14659/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 25.06.14.pdf",
+      "label_value": 42.11,
+      "label_present": true,
+      "label_value_llm_output": 42.11,
+      "fingerprint": "['Ordentliche Hauptversammlung der CANCOM SE\\nam 25. Juni 2014 in München\\nAbstimmergebnisse\\nGrundkapital: 14.615.791,00 € Abstimmungspräsenz: 6.155.361 Stimmen entsprechen 42,114% vom Grundkapital\\nGültige Stimmen\\nAbstimmungspunkte Enthaltungen Nein - Stimmen Ja - Stimmen Ergebnis\\nin % v.GK\\nTOP"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Gerresheimer AG-15711/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.04.15.pdf",
+      "label_value": 78.54,
+      "label_present": true,
+      "label_value_llm_output": 78.54,
+      "fingerprint": "['Gerresheimer AG\\nDüsseldorf\\nWertpapier-Kenn-Nummer (WKN) A0LD6E\\nInternational Securities Identification\\nNumber (ISIN) DE000A0LD6E6\\nVERÖFFENTLICHUNG gemäß § 130 AktG\\nOrdentliche Hauptversammlung der Gerresheimer AG\\nstimmt allen Beschlussvorlagen der Verwaltung zu\\nDüsseldorf, 30. April 2015. "
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/euromicron AG i.I.-9615/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 18.06.09.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0,
+      "fingerprint": "['euromicron AG\\nOrdentliche Hauptversammlung am 18. Juni 2009\\nAuditorium der Commerzbank AG, Frankfurt am Main\\nTagesordnungspunkte Ja- Nein- Enthaltungen\\nStimmen Stimmen\\nTOP 2 Beschlussfassung über die Verwendung des 1.663.697 256.205 173.640\\nBilanzgewinns (Vorschlag der Verwaltung\\nwurde abge"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Evotec AG-14789/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 10.06.10.pdf",
+      "label_value": 35.48,
+      "label_present": true,
+      "label_value_llm_output": 35.48,
+      "fingerprint": "['Evotec AG\\nordentliche Hauptversammlung am 10.06.2010\\nPräsenz und Abstimmungsergebnisse\\nVom Grundkapital der Evotec AG in Höhe von 108.838.715 Euro, eingeteilt in 108.838.715 auf den Inhaber lautende Stückaktien, waren auf\\nder ordentlichen Hauptversammlung 38.613.459 Aktien mit ebenso vielen St"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/New Work SE-15739/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 21.05.08.pdf",
+      "label_value": 67.02,
+      "label_present": true,
+      "label_value_llm_output": -1.0,
+      "fingerprint": "['Ordentliche Hauptversammlung am 21. Mai 2008\\n2\\nAbstimmung zu Tagesordnungspunkt\\nBeschlussfassung über die Entlastung der Mitglieder des\\nVorstands für das Geschäftsjahr 2007\\nDie Abstimmung ergab bei einer stimmberechtigten Präsenz\\nvon 2.046.158 Aktien\\n*\\nEnthaltungen 20 Stimmen\\nNein-Stimmen"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Sky Deutschland AG-15669/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 15.04.11.pdf",
+      "label_value": 73.37,
+      "label_present": true,
+      "label_value_llm_output": 99.31,
+      "fingerprint": "['Die Aktionäre der Sky Deutschland AG haben heute auf der ordentlichen Hauptversammlung der Wahl von Herrn Jan\\nKoeppen in den Aufsichtsrat des Unternehmens zugestimmt. Der Beschlussvorschlag wurde von 99,3129 Prozent des\\nanwesenden Grundkapitals angenommen.\\nJan Koeppen folgt auf Steven Tomsic, d"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/ProSiebenSAT.1 Media SE-15766/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 29.06.10.pdf",
+      "label_value": 63.33,
+      "label_present": true,
+      "label_value_llm_output": 63.33,
+      "fingerprint": "['Abstimmungsergebnisse\\nzur Hauptversammlung der ProSiebenSat.1 Media AG\\nam 29. Juni 2010, München\\nin % der in % der\\nin % des abge- in % des in % des\\nabge- abge-\\ngesamten gebene gül- präsenten gesamten Ja- Nein-\\nTagesordnungspunkt Präsenz gebenen gebenen Vorschlag\\nGrund- tige Stim- Grund- Gr"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Borussia Dortmund GmbH & Co. KGaA-14705/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 25.11.19.pdf",
+      "label_value": 63.72,
+      "label_present": true,
+      "label_value_llm_output": 63.72,
+      "fingerprint": "['Borussia Dortmund GmbH & Co. KGaA, Dortmund\\nOrdentliche Hauptversammlung am 25.11.2019\\nAbstimmungsergebnisse - Übersicht\\nTOP 1 Beschlussfassung über die Feststellung des Jahresabschlusses zum 30. Juni 2019 - angenommen\\n58.122.044 Aktien, für die gültige Stimmen abgegeben wurden (= 63,18 % des "
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Kontron AG-14595/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 21.05.19.pdf",
+      "label_value": 60.32,
+      "label_present": true,
+      "label_value_llm_output": 60.32,
+      "fingerprint": "['Abstimmungsergebnisse zur 20. ordentlichen Hauptversammlung der\\nS&T AG am 21. Mai 2019\\nTagesordnungspunkt 2:\\nBeschlussfassung über die Verwendung des Bilanzgewinns\\nPräsenz: 279 Aktionäre mit 39.862.692 Stimmen.\\nZahl der Aktien, für die gültige Stimmen abgegeben wurden: 39.862.692\\nAnteil des "
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Rheinmetall AG-15198/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 08.05.07.pdf",
+      "label_value": 50.58,
+      "label_present": true,
+      "label_value_llm_output": 50.58,
+      "fingerprint": "['Rheinmetall AG\\nOrdentliche Hauptversammlung am 08.05.2007\\nPräsenz\\nVom Grundkapital der Gesellschaft in Höhe von 92.160.000,00 EUR, eingeteilt in 36.000.000 Stück Stückaktien, wa-\\nren insgesamt 18.209.044 Stückaktien mit ebenso vielen Stimmen präsent.\\nDas entsprach 50,58 % des Grundkapitals\\nA"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Gigaset AG-14547/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 12.06.12.pdf",
+      "label_value": 14.79,
+      "label_present": true,
+      "label_value_llm_output": 14.78,
+      "fingerprint": "['Gigaset AG\\nAbstimmungsergebnis der ordentlichen Hauptversammlung am 12.06.2012 in München\\nTagesordnungspunkte Beteiligte Aktien, für die Anteil am Ja Enthaltungen Nein\\nStimmen gültige Grundka-\\nStimmen pital\\nabgegeben\\nworden sind\\nTOP 2 Beschlussfassung über die Verwendung des 7.412.864 7.393"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Tele Columbus AG-15863/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 14.09.15.pdf",
+      "label_value": 70.7,
+      "label_present": true,
+      "label_value_llm_output": 70.7,
+      "fingerprint": "['Außerordentliche Hauptversammlung\\nAAbbssttiimmmmuunnggsseerrggeebbnniissssee\\nBerlin, 14. September 2015', 'Tagesordnung\\nBeschlussfassung über die Erhöhung des Grundkapitals gegen\\nBareinlagen unter Gewährung eines mittelbaren Bezugsrechts\\nAAnnzzaahhll ddeerr AAkkttiieenn,, ffüürr wweellcchhee "
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Leoni AG-14653/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 19.05.21.pdf",
+      "label_value": 32.7,
+      "label_present": true,
+      "label_value_llm_output": 32.0,
+      "fingerprint": "['Abstimmungsergebnis - Übersichtsliste\\nLEONI AG\\nOrdentliche Hauptversammlung am 19. Mai 2021\\nJA-Stimmen\\nIn % des NEIN-Stimmen\\nGültig in % der\\neingetrage- in % der gültig Beschluss-\\nTagesordnungspunkt abgegebene JA-Stimmen gültig NEIN-Stimmen\\nnen Grund- abgegeben vorschlag\\nStimmen abgegeben"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Deutsche Bank AG-14539/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 27.05.10.pdf",
+      "label_value": 29.2,
+      "label_present": true,
+      "label_value_llm_output": 29.13,
+      "fingerprint": "['Deutsche Bank\\nDeutsche Bank Aktiengesellschaft - Hauptversammlung 2010\\nAbstimmungsergebnisse\\nTOP 2 Verwendung des Bilanzgewinns - um eigene Aktien korrigierter Vorschlag gem. Einberufung\\nangenommen\\n180.109.302 Aktien, für die gültige Stimmen abgegeben wurden (= 29,01 % des Grundkapitals)\\n179"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Bilfinger SE-14884/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 31.05.11.pdf",
+      "label_value": 52.37,
+      "label_present": true,
+      "label_value_llm_output": 52.37,
+      "fingerprint": "['Bilfinger Berger SE\\nAbstimmungsergebnis der ordentlichen Hauptversammlung am 31.05.2011 in Mannheim\\nTOP Tagesordnungspunkte abgegebene in % des Ja Stimmen in % Nein Stimmen Enthaltung\\ngültige Stimmen satzungsgemäßen\\nGrundkapitals*\\n2 Verwendung des Bilanzgewinns 24.101.960 52,37% 24.098.524 99"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hornbach-Baumarkt-Aktiengesellschaft-10690/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 08.07.15.pdf",
+      "label_value": 86.44,
+      "label_present": true,
+      "label_value_llm_output": 86.4,
+      "fingerprint": "['OOOOrrrrddddeeeennnnttttlllliiiicccchhhheeee HHHHaaaauuuuppppttttvvvveeeerrrrssssaaaammmmmmmmlllluuuunnnngggg\\nddddeeeerrrr HHHHoooorrrrnnnnbbbbaaaacccchhhh----BBBBaaaauuuummmmaaaarrrrkkkktttt----AAAAkkkkttttiiiieeeennnnggggeeeesssseeeellllllllsssscccchhhhaaaafffftttt\\n8888....7777....222200001111"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Aareal Bank AG-14644/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 18.05.21.pdf",
+      "label_value": 55.28,
+      "label_present": true,
+      "label_value_llm_output": 55.0,
+      "fingerprint": "['Aareal Bank AG, Wiesbaden\\nOrdentliche Hauptversammlung am 18.05.2021\\nAbstimmungsergebnis - Übersicht\\nTOP 2 Beschlussfassung über die Verwendung des Bilanzgewinns des Geschäftsjahres 2020 - angenommen\\n32.452.496 Aktien, für die gültige Stimmen abgegeben wurden (= 54,22 % des Grundkapitals)\\n32."
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/DO Deutsche Office AG-15852/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.14.pdf",
+      "label_value": 78.24,
+      "label_present": true,
+      "label_value_llm_output": 78.24,
+      "fingerprint": "['Ordentliche Hauptversammlung\\nder Prime Office AG\\n20. Mai 2014, Köln\\n- Präsenz und Abstimmungsergebnisse -', 'Präsenz\\nGrundkapital in Euro 180.529.633,00\\nausgegebene Aktien in Stück 180.529.633\\nanwesende Aktien in Stück 141.245.544\\nAnteil am Grundkapital 78,2395 %\\nOrdentliche Hauptversammlu"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/H&R GmbH & Co. KGaA-15408/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 19.07.07.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0,
+      "fingerprint": "['Abstimmungsergebnisse der Hauptversammlung der H&R WASAG AG am 19. Juli 2007 in Hamburg\\nStimmen (ohne Gewähr)\\nJA NEIN Enthaltung\\nTOP 2 Verwendung des Bilanzgewinns aus dem Geschäftsjahr 2006 20.140.775 0 432\\nTOP 3 Entlastung der Mitglieder des Vorstands für das Geschäftsjahr 2006 20.139.692 10"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Software AG-14446/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.07.pdf",
+      "label_value": 67.47,
+      "label_present": true,
+      "label_value_llm_output": 67.47,
+      "fingerprint": "['Seite 1/2\\nAbstimmungsergebnisse\\nHauptversammlung am 11. Mai 2007 in Frankfurt am Main/Deutschland\\nTagesordnungspunkt\\n1. Vorlage des festgestellten Jahresabschlusses der Software AG zum\\n31. Dezember 2006, des Lageberichts sowie des gebilligten\\nKonzernabschlusses zum 31. Dezember 2006 und des "
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Osram Licht AG-15829/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 27.02.14.pdf",
+      "label_value": 50.19,
+      "label_present": true,
+      "label_value_llm_output": 50.19,
+      "fingerprint": "['OSRAM Licht AG\\nOrdentliche Hauptversammlung am 27.02.2014\\nAbstimmergebnisse\\nin % der gültig in % der gültig\\nGültig in % vom abgegebenen abgegebenen\\nTOP Abstimmpunkt abgegebene Stimmen Grundkapital Ja Stimmen Nein Stimmen Ergebnis\\n2 Beschlussfassung über die Verwendung des Bilanzgewinns der O"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/alstria office REIT-AG-1362/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 14.05.14.pdf",
+      "label_value": 66.53,
+      "label_present": true,
+      "label_value_llm_output": 66.51,
+      "fingerprint": "['alstria office REIT-AG, Hamburg\\nOrdentliche Hauptversammlung am 14. Mai 2014\\nAbstimmungsergebnis - Übersicht\\nTOP 2 Verwendung des Bilanzgewinns für das Geschäftsjahr 2013 – angenommen\\n52.500.510 Aktien, für die gültige Stimmen abgegeben wurden (= 66,51% des\\nGrundkapitals)\\n52.160.865 Ja-Stimm"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Volkswagen AG-14576/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 03.05.11.pdf",
+      "label_value": 91.99,
+      "label_present": true,
+      "label_value_llm_output": 59.25,
+      "fingerprint": "['VOLKSWAGEN AG, Wolfsburg\\nOrdentliche Hauptversammlung am 03.05.2011\\nPräsenz\\n465.188.355 Anzahl aller Stamm- und Vorzugsaktien\\n275.605.080 davon sind auf der Hauptversammlung 2011 vertreten\\n= Gesamtpräsenz: 59,25%\\n295.045.577 Anzahl aller Stammaktien\\n271.402.693 davon auf der Hauptversammlun"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/HELLA GmbH & Co. KGaA-15749/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 25.09.15.pdf",
+      "label_value": 85.34,
+      "label_present": true,
+      "label_value_llm_output": 85.34,
+      "fingerprint": "['1', 'Ordentliche Hauptversammlung 2015\\nTOP 1: Feststellung des Jahresabschlusses\\nStimmberechtigte Präsenzbei der\\n94.854.928\\nAbstimmung mit ebenso vielen Stimmen:\\nAbgegebene gültige Stimmen: 94.824.215\\nEntspricht % des Grundkapitals: 85,34%\\nStimmen Prozent\\nENTHALTUNGEN 30.713 -\\nNEIN 406 0,"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/ZEAL Network SE-15442/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 19.06.14.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": 99.77,
+      "fingerprint": "['Annual General Meeting of Tipp24 SE on 19 June 2014\\nVoting results\\nResolution 1 To receive the Annual Report and Accounts of the Company for the year ended 31 December 2013\\n2,246,025 VOTES TOTAL\\n2,240,781 VOTES FOR 99.77%\\n5,244 VOTES AGAINST 0.23%\\n1,270,798 VOTES WITHHELDS\\nResolution 2 To a"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Norma Group SE-15763/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.15.pdf",
+      "label_value": 61.62,
+      "label_present": true,
+      "label_value_llm_output": 61.62,
+      "fingerprint": "['NORMA Group SE, Maintal\\nOrdentliche Hauptversammlung am 20.05.2015\\nAbstimmungsergebnis - Übersicht\\nTOP 2 Beschlussfassung über die Verwendung des Bilanzgewinns für das Geschäftsjahr 2014 -\\nangenommen\\n19.635.015 Aktien, für die gültige Stimmen abgegeben wurden (= 61,62 % des Grundkapitals)\\n19"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Pfeiffer Vacuum Technology AG-15160/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 31.05.06.pdf",
+      "label_value": 49.83,
+      "label_present": true,
+      "label_value_llm_output": 49.83,
+      "fingerprint": "['Hauptversammlung der Pfeiffer Vacuum Technology AG\\n31. Mai 2006 - Stadthalle 35578 Wetzlar\\nPräsenz: 49,83 % des Grundkapitals = 4.380.738 Stückaktien vom Grundkapital der\\nGesellschaft in Höhe von 22.503.936,00 Euro = 8.790.600 Stückaktien\\nAbstimmungsergebnis\\n2. Beschlussfassung über die Verwe"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/MLP  SE-15057/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 31.05.06.pdf",
+      "label_value": 65.43,
+      "label_present": true,
+      "label_value_llm_output": 65.43,
+      "fingerprint": "['MLP Hauptversammlung 2006\\nVom 31. Mai 2006 in Mannheim\\nÜbersicht Abstimmungsergebnisse\\nJa-Stimmen in\\nTagesordnungspunkt\\nProzent\\nBeschlussfassung über die Verwendung des Bilanzgewinns zum 31.\\n99,89\\nDezember 2005\\nBeschlussfassung über die Entlastung der Mitglieder des Vorstands für das\\n99,"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Süss MicroTec SE-15262/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 19.06.13.pdf",
+      "label_value": 26.9,
+      "label_present": true,
+      "label_value_llm_output": 26.9,
+      "fingerprint": "['SÜSS MicroTec AG\\nordentliche Hauptversammlung am 19.06.2013\\nPräsenz und Abstimmungsergebnisse\\nVom Grundkapital der SÜSS MicroTec AG in Höhe von 19.115.538 EUR, eingeteilt in 19.115.538 auf den Namen lautende Stückaktien,\\nwaren auf der ordentlichen Hauptversammlung zum Zeitpunkt der Abstimmung "
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Grammer AG-14866/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 28.05.08.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": 99.63,
+      "fingerprint": "['Abstimmungsergebnisse der Grammer AG zur Hauptversammlung am\\n28.05.08\\nTop 2:\\nNein: 13.527\\nJa: 3.612.786 (= 99,63% der abgegebenen Stimmen)\\n=> Vorschlag der Verwaltung mit der erforderlichen Mehrheit angenommen\\nTop 3:\\nNein: 1.381\\nJa: 2.598.691 (= 99,95% der abgegebenen Stimmen)\\n=> Vorschla"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Bayer AG-14805/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 27.04.21.pdf",
+      "label_value": 53.17,
+      "label_present": true,
+      "label_value_llm_output": 52.97,
+      "fingerprint": "['Abstimmungsergebnisse\\nTagesordnungspunkt Gültige Stimmen* Ja-Stimmen Nein-Stimmen Enthaltungen Ergebnis\\nStück in %** Stück in % Stück in % Stück\\n1 Gewinnverwendung 512.502.683 52,17 % 510.900.611 99,69 % 1.602.072 0,31 % 12.425.870 angenommen\\n2 Entlastung der Mitglieder des Vorstands 504.384.3"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/METRO AG-15292/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.02.22.pdf",
+      "label_value": 80.27,
+      "label_present": true,
+      "label_value_llm_output": 80.27,
+      "fingerprint": "['Metro AG, Düsseldorf\\nOrdentliche Hauptversammlung am 11.02.2022\\nÜbersicht Abstimmungsergebnisse\\nTOP 2 Entlastung der Mitglieder des Vorstands (angenommen)\\n291.441.218 Aktien, für die gültige Stimmen abgegeben wurden (= 80,27 % des Grundkapitals)\\n290.856.341 Ja-Stimmen (99,80 %)\\n584.877 Nein-"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Zalando SE-15870/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 19.05.21.pdf",
+      "label_value": 86.79,
+      "label_present": true,
+      "label_value_llm_output": 86.77,
+      "fingerprint": "['Abstimmungsergebnisse\\n2021\\nBerlin, 19. Mai 2021', 'Abstimmungsergebnisse\\nTagesordnungspunkt2\\nVerwendung des Bilanzgewinns\\nAnzahl der gültig abgegebenen Stimmen 226.460.402\\nAnteil des hierdurch vertretenen Grundkapitals 86,79 %\\nJa 226.444.561 99,99 %\\nNein 15.841 0,01 %\\n2', 'Abstimmungserge"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hamburger Hafen und Logistik AG-10561/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.06.15.pdf",
+      "label_value": 82.69,
+      "label_present": true,
+      "label_value_llm_output": 82.69,
+      "fingerprint": "['Abstimmungsergebnisse\\nHauptversammlung 2015\\nDie Hauptversammlung der Hamburger Hafen und Logistik AG hat am 11. Juni 2015 die von Vorstand und Aufsichtsrat\\nvorgeschlagene Dividende von 0,52 € pro A-Aktie und 1,50 € pro S-Aktie beschlossen.\\nAbstimmungsergebnisse\\nTagesordnungspunkte (Top) abgeg"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Dürr AG-14774/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 24.05.06.pdf",
+      "label_value": 75.49,
+      "label_present": true,
+      "label_value_llm_output": 75.49,
+      "fingerprint": "['Aktiengesellschaft\\nOtto-Dürr-Straße 8\\n70435 Stuttgart\\nWertpapier-Kenn-Nr. 556 520\\nISIN DE 0005565204\\nAbstimmungsergebnisse Dürr-Hauptversammlung 24. Mai 2006\\nPräsenz:\\n11.873.077 Stückaktien = Stimmen = 75,49% des Grundkapitals\\nEURO = 30.395.077,12\\nAbstimmungsergebnisse:\\nTOP 2 Entlastung "
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Rational AG-15188/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 03.05.17.pdf",
+      "label_value": 93.02,
+      "label_present": true,
+      "label_value_llm_output": 92.98,
+      "fingerprint": "['Abstimmungsergebnisse\\nHauptversammlung der RATIONAL AG am 03.05.2017\\nIn % des In % zu den In % zu den\\nAbgegebene\\nsatzungs- abgegebenen abgegebenen Zustimmung /\\nBeschlussfassungen Enthaltungen gültige Nein-Stimmen Ja-Stimmen\\nmäßigen gültigen gültigen Ablehnung\\nStimmen*\\nGrundkapitals Stimmen"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/HAMBORNER REIT AG-8695/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.05.15.pdf",
+      "label_value": 42.88,
+      "label_present": true,
+      "label_value_llm_output": 42.88,
+      "fingerprint": "['HAMBORNER REIT AG\\nOrdentliche Hauptversammlung am 07.05.2015 in Mülheim an der Ruhr\\nAbstimmungsergebnisse\\nTagesordnungspunkte Ent- Abgegebene Anteil des Ja- Anteil Nein- Anteil der Damit ist der\\nhaltungen gültige hierdurch Stimmen der Ja- Stimmen Nein- Vorschlag\\nStimmen vertretenen Stimmen St"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/KUKA AG-14958/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.05.07.pdf",
+      "label_value": 53.0,
+      "label_present": true,
+      "label_value_llm_output": 53.0,
+      "fingerprint": "['PRESSEMITTEILUNG\\nAugsburg, 16. Mai 2007\\nHauptversammlung 2007:\\nHAUPTVERSAMMLUNG BESCHLIESST\\nUMBENENNUNG DER IWKA AG IN KUKA AG\\nDer Umbenennung der IWKA Aktiengesellschaft in KUKA\\nAktiengesellschaft stimmte die Aktionärsversammlung am 16. Mai 2007\\nin Augsburg mit großer Mehrheit zu. Die KUKA"
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Morphosys AG-15099/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 04.06.13.pdf",
+      "label_value": 41.55,
+      "label_present": true,
+      "label_value_llm_output": 41.46,
+      "fingerprint": "['MorphoSys AG\\nordentliche Hauptversammlung am 04.06.2013\\nPräsenz und Abstimmungsergebnisse\\nVom Grundkapital der MorphoSys AG in Höhe von 23.358.228 EUR, eingeteilt in 23.358.228 auf den Inhaber lautende Stückaktien, waren auf der\\nordentlichen Hauptversammlung im Zeitpunkt der Abstimmung 9.684.9"
+    }
+  ]
+}
