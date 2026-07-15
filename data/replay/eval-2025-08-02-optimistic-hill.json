@@ -1,0 +1,2061 @@
+{
+  "run": "eval-2025-08-02-optimistic-hill",
+  "replay_level": "predict",
+  "split": "test",
+  "model_id": "gpt-4.1_using_base_prompt_pagewise_pass_few_shot_all_values",
+  "llm_name": "gpt-4.1",
+  "note": "Evaluated on test set across ten trials; received perfect score on selective accuracy. Positively surprising since the optimization did not entirely converge on the train set. Result might be explained through limited size of test set, i.e. that there might have been some a bit of \"luck\" involved in the sampling",
+  "scores": {
+    "accuracy": 0.9411764705882353,
+    "selective_accuracy": 1.0,
+    "coverage": 0.9411764705882353,
+    "correct": 320,
+    "wrong": 0,
+    "abstain": 20,
+    "model_latency_s": 3.466634282645057
+  },
+  "system_prompt": "Du bist ein hilfreicher Assistent, der Hauptversammlungsbeschlüsse auswertet.",
+  "base_prompt": "Im folgenden erhältst du eine Seite eines Hauptversammlungsbeschlusses. \n\nIn der Regel enthält der Beschluss eine Angabe darüber, wie viel Prozent des stimmberechtigten Grundkapitals auf der Hauptversammlung vertreten waren. Nur Stammaktien, nicht aber Vorzugsaktien sind mit Stimmrechten behaftet.\n\nZu unterscheiden ist die Angabe des Anteils am Grundkapital in % von dem prozentualen Anteil der abgegebenen JA- und NEIN-Stimmen für einen bestimmten Tagesordnungspunkt. Bsp.:\n\nBsp.:\n\nTechNova AG Hauptversammlung\n10. Juni 2021 | Abstimmungsergebnisse der Tagesordnung\n\nInsgesamt 415.729.432 Aktien bzw. 52,18 % des gezeichneten Kapitals\nwurden auf der Hauptversammlung vertreten.\n\nAntrag auf Einzelentlastung des Aufsichtsrats\nJa-Stimmen:  50.123.789 = 12,06 %\nNein-Stimmen: 365.605.643 = 87,94 %\n\nZu Tagesordnungspunkt 2:\nBeschlussfassung über die Verwendung des Bilanzgewinns\nJa-Stimmen:  413.912.345 = 99,58 %\nNein-Stimmen:   1.817.087 = 0,42 %\n\nZu Tagesordnungspunkt 3:\nBeschlussfassung über die Entlastung der Mitglieder des Vorstands\nJa-Stimmen:  412.850.112 = 99,78 %\nNein-Stimmen:   929.320 = 0,22 %\n\nHier ist zwar die höchste Zahl 99,78 %, aber diese Zahl bezieht sich auf den Anteil der für diesen Tagesordnungspunkt abgegebenen Stimmen. Er trifft keine Aussage über den Anteil des vertretenen Grundkapitals. Die richtige Antwort ist 52,18 %.\n\nExtrahiere alle Prozentangaben, die sich auf den auf der Hauptversammlung vertretenen Anteil des Grundkapitals beziehen. Wenn du dir unsicher bist oder die Angabe nicht vorhanden ist, antworte mit -1. \n\nBeschluss: {report}\n",
+  "examples": [
+    {
+      "file_path": "data/Praesenzen_hv-info/Deutsche Beteiligungs AG - DBAG-14721/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 17.02.22.pdf",
+      "label_value": 55.79,
+      "label_present": true,
+      "label_value_llm_output": 55.79
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Continental AG-11427/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.04.09.pdf",
+      "label_value": 71.23,
+      "label_present": true,
+      "label_value_llm_output": 71.23
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Manz AG-15698/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.07.15.pdf",
+      "label_value": 56.06,
+      "label_present": true,
+      "label_value_llm_output": 56.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/comdirect bank AG-14666/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 09.05.12.pdf",
+      "label_value": 84.11,
+      "label_present": true,
+      "label_value_llm_output": 84.11
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius SE & Co. KGaA-14829/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.12.pdf",
+      "label_value": 75.53,
+      "label_present": true,
+      "label_value_llm_output": 75.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Schaltbau Holding AG-15230/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 50.8,
+      "label_present": true,
+      "label_value_llm_output": 50.8
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius Medical Care AG & Co. KGaA-14830/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.10.pdf",
+      "label_value": 74.29,
+      "label_present": true,
+      "label_value_llm_output": 74.29
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PATRIZIA AG-15849/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.06.09.pdf",
+      "label_value": 64.14,
+      "label_present": true,
+      "label_value_llm_output": 64.14
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/elexis AG-14510/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.05.07.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Münchener Rückversicherungs-Gesellschaft AG-15635/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 26.05.04.pdf",
+      "label_value": 44.89,
+      "label_present": true,
+      "label_value_llm_output": 44.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Grenke AG-5318/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 12.05.09.pdf",
+      "label_value": 80.69,
+      "label_present": true,
+      "label_value_llm_output": 80.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Koenig & Bauer AG-14730/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.06.23.pdf",
+      "label_value": 58.69,
+      "label_present": true,
+      "label_value_llm_output": 58.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BayWa AG-14442/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 15.06.11.pdf",
+      "label_value": 70.49,
+      "label_present": true,
+      "label_value_llm_output": 70.49
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/MTU Aero Engines AG-15663/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 08.05.14.pdf",
+      "label_value": 19.48,
+      "label_present": true,
+      "label_value_llm_output": 19.48
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fraport AG (Flughafen Frankfurt a. M. AG)-14731/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 01.06.11.pdf",
+      "label_value": 79.25,
+      "label_present": true,
+      "label_value_llm_output": 79.25
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hannover Rück SE-15619/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 03.05.07.pdf",
+      "label_value": 38.44,
+      "label_present": true,
+      "label_value_llm_output": 38.44
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BASF SE-11193/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 04.05.06.pdf",
+      "label_value": 38.41,
+      "label_present": true,
+      "label_value_llm_output": 38.41
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BAUER AG-14554/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 18.11.22.pdf",
+      "label_value": 72.55,
+      "label_present": true,
+      "label_value_llm_output": 72.55
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Jenoptik AG-11745/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 56.4,
+      "label_present": true,
+      "label_value_llm_output": 56.4
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Centrotec SE-14642/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.14.pdf",
+      "label_value": 66.97,
+      "label_present": true,
+      "label_value_llm_output": 66.97
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Klöckner & Co SE-1368/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.06.07.pdf",
+      "label_value": 55.09,
+      "label_present": true,
+      "label_value_llm_output": 55.09
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RWE AG-15203/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 19.04.12.pdf",
+      "label_value": 58.06,
+      "label_present": true,
+      "label_value_llm_output": 58.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Nemetschek SE-15031/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.15.pdf",
+      "label_value": 80.1,
+      "label_present": true,
+      "label_value_llm_output": 80.1
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/K+S Aktiengesellschaft-15222/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.11.pdf",
+      "label_value": 54.72,
+      "label_present": true,
+      "label_value_llm_output": 54.72
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/ThyssenKrupp AG-15358/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.01.04.pdf",
+      "label_value": 56.18,
+      "label_present": true,
+      "label_value_llm_output": 56.18
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/United Internet AG-14517/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.05.13.pdf",
+      "label_value": 57.53,
+      "label_present": true,
+      "label_value_llm_output": 57.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/SolarWorld AG i.L.-14526/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 07.08.13.pdf",
+      "label_value": 31.12,
+      "label_present": true,
+      "label_value_llm_output": 31.12
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Praktiker AG-15674/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 29.05.13.pdf",
+      "label_value": 28.53,
+      "label_present": true,
+      "label_value_llm_output": 28.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hochtief AG-14930/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.05.09.pdf",
+      "label_value": 60.91,
+      "label_present": true,
+      "label_value_llm_output": 60.91
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/CEWE Stiftung & Co. KGaA-13084/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 05.06.13.pdf",
+      "label_value": 56.86,
+      "label_present": true,
+      "label_value_llm_output": 56.86
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RHÖN-KLINIKUM AG-15207/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.06.17.pdf",
+      "label_value": 80.96,
+      "label_present": true,
+      "label_value_llm_output": 80.96
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Stada Arzneimittel AG-14737/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.05.12.pdf",
+      "label_value": 34.54,
+      "label_present": true,
+      "label_value_llm_output": 34.54
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PUMA SE-15179/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.04.10.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Sport1 Medien AG-15646/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.07.14.pdf",
+      "label_value": 49.89,
+      "label_present": true,
+      "label_value_llm_output": 49.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Deutsche Beteiligungs AG - DBAG-14721/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 17.02.22.pdf",
+      "label_value": 55.79,
+      "label_present": true,
+      "label_value_llm_output": 55.79
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Continental AG-11427/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.04.09.pdf",
+      "label_value": 71.23,
+      "label_present": true,
+      "label_value_llm_output": 71.23
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Manz AG-15698/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.07.15.pdf",
+      "label_value": 56.06,
+      "label_present": true,
+      "label_value_llm_output": 56.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/comdirect bank AG-14666/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 09.05.12.pdf",
+      "label_value": 84.11,
+      "label_present": true,
+      "label_value_llm_output": 84.11
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius SE & Co. KGaA-14829/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.12.pdf",
+      "label_value": 75.53,
+      "label_present": true,
+      "label_value_llm_output": 75.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Schaltbau Holding AG-15230/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 50.8,
+      "label_present": true,
+      "label_value_llm_output": 50.8
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius Medical Care AG & Co. KGaA-14830/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.10.pdf",
+      "label_value": 74.29,
+      "label_present": true,
+      "label_value_llm_output": 74.29
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PATRIZIA AG-15849/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.06.09.pdf",
+      "label_value": 64.14,
+      "label_present": true,
+      "label_value_llm_output": 64.14
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/elexis AG-14510/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.05.07.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Münchener Rückversicherungs-Gesellschaft AG-15635/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 26.05.04.pdf",
+      "label_value": 44.89,
+      "label_present": true,
+      "label_value_llm_output": 44.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Grenke AG-5318/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 12.05.09.pdf",
+      "label_value": 80.69,
+      "label_present": true,
+      "label_value_llm_output": 80.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Koenig & Bauer AG-14730/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.06.23.pdf",
+      "label_value": 58.69,
+      "label_present": true,
+      "label_value_llm_output": 58.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BayWa AG-14442/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 15.06.11.pdf",
+      "label_value": 70.49,
+      "label_present": true,
+      "label_value_llm_output": 70.49
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/MTU Aero Engines AG-15663/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 08.05.14.pdf",
+      "label_value": 19.48,
+      "label_present": true,
+      "label_value_llm_output": 19.48
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fraport AG (Flughafen Frankfurt a. M. AG)-14731/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 01.06.11.pdf",
+      "label_value": 79.25,
+      "label_present": true,
+      "label_value_llm_output": 79.25
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hannover Rück SE-15619/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 03.05.07.pdf",
+      "label_value": 38.44,
+      "label_present": true,
+      "label_value_llm_output": 38.44
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BASF SE-11193/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 04.05.06.pdf",
+      "label_value": 38.41,
+      "label_present": true,
+      "label_value_llm_output": 38.41
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BAUER AG-14554/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 18.11.22.pdf",
+      "label_value": 72.55,
+      "label_present": true,
+      "label_value_llm_output": 72.55
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Jenoptik AG-11745/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 56.4,
+      "label_present": true,
+      "label_value_llm_output": 56.4
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Centrotec SE-14642/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.14.pdf",
+      "label_value": 66.97,
+      "label_present": true,
+      "label_value_llm_output": 66.97
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Klöckner & Co SE-1368/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.06.07.pdf",
+      "label_value": 55.09,
+      "label_present": true,
+      "label_value_llm_output": 55.09
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RWE AG-15203/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 19.04.12.pdf",
+      "label_value": 58.06,
+      "label_present": true,
+      "label_value_llm_output": 58.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Nemetschek SE-15031/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.15.pdf",
+      "label_value": 80.1,
+      "label_present": true,
+      "label_value_llm_output": 80.1
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/K+S Aktiengesellschaft-15222/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.11.pdf",
+      "label_value": 54.72,
+      "label_present": true,
+      "label_value_llm_output": 54.72
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/ThyssenKrupp AG-15358/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.01.04.pdf",
+      "label_value": 56.18,
+      "label_present": true,
+      "label_value_llm_output": 56.18
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/United Internet AG-14517/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.05.13.pdf",
+      "label_value": 57.53,
+      "label_present": true,
+      "label_value_llm_output": 57.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/SolarWorld AG i.L.-14526/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 07.08.13.pdf",
+      "label_value": 31.12,
+      "label_present": true,
+      "label_value_llm_output": 31.12
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Praktiker AG-15674/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 29.05.13.pdf",
+      "label_value": 28.53,
+      "label_present": true,
+      "label_value_llm_output": 28.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hochtief AG-14930/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.05.09.pdf",
+      "label_value": 60.91,
+      "label_present": true,
+      "label_value_llm_output": 60.91
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/CEWE Stiftung & Co. KGaA-13084/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 05.06.13.pdf",
+      "label_value": 56.86,
+      "label_present": true,
+      "label_value_llm_output": 56.86
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RHÖN-KLINIKUM AG-15207/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.06.17.pdf",
+      "label_value": 80.96,
+      "label_present": true,
+      "label_value_llm_output": 80.96
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Stada Arzneimittel AG-14737/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.05.12.pdf",
+      "label_value": 34.54,
+      "label_present": true,
+      "label_value_llm_output": 34.54
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PUMA SE-15179/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.04.10.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Sport1 Medien AG-15646/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.07.14.pdf",
+      "label_value": 49.89,
+      "label_present": true,
+      "label_value_llm_output": 49.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Deutsche Beteiligungs AG - DBAG-14721/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 17.02.22.pdf",
+      "label_value": 55.79,
+      "label_present": true,
+      "label_value_llm_output": 55.79
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Continental AG-11427/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.04.09.pdf",
+      "label_value": 71.23,
+      "label_present": true,
+      "label_value_llm_output": 71.23
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Manz AG-15698/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.07.15.pdf",
+      "label_value": 56.06,
+      "label_present": true,
+      "label_value_llm_output": 56.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/comdirect bank AG-14666/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 09.05.12.pdf",
+      "label_value": 84.11,
+      "label_present": true,
+      "label_value_llm_output": 84.11
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius SE & Co. KGaA-14829/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.12.pdf",
+      "label_value": 75.53,
+      "label_present": true,
+      "label_value_llm_output": 75.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Schaltbau Holding AG-15230/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 50.8,
+      "label_present": true,
+      "label_value_llm_output": 50.8
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius Medical Care AG & Co. KGaA-14830/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.10.pdf",
+      "label_value": 74.29,
+      "label_present": true,
+      "label_value_llm_output": 74.29
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PATRIZIA AG-15849/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.06.09.pdf",
+      "label_value": 64.14,
+      "label_present": true,
+      "label_value_llm_output": 64.14
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/elexis AG-14510/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.05.07.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Münchener Rückversicherungs-Gesellschaft AG-15635/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 26.05.04.pdf",
+      "label_value": 44.89,
+      "label_present": true,
+      "label_value_llm_output": 44.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Grenke AG-5318/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 12.05.09.pdf",
+      "label_value": 80.69,
+      "label_present": true,
+      "label_value_llm_output": 80.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Koenig & Bauer AG-14730/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.06.23.pdf",
+      "label_value": 58.69,
+      "label_present": true,
+      "label_value_llm_output": 58.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BayWa AG-14442/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 15.06.11.pdf",
+      "label_value": 70.49,
+      "label_present": true,
+      "label_value_llm_output": 70.49
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/MTU Aero Engines AG-15663/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 08.05.14.pdf",
+      "label_value": 19.48,
+      "label_present": true,
+      "label_value_llm_output": 19.48
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fraport AG (Flughafen Frankfurt a. M. AG)-14731/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 01.06.11.pdf",
+      "label_value": 79.25,
+      "label_present": true,
+      "label_value_llm_output": 79.25
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hannover Rück SE-15619/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 03.05.07.pdf",
+      "label_value": 38.44,
+      "label_present": true,
+      "label_value_llm_output": 38.44
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BASF SE-11193/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 04.05.06.pdf",
+      "label_value": 38.41,
+      "label_present": true,
+      "label_value_llm_output": 38.41
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BAUER AG-14554/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 18.11.22.pdf",
+      "label_value": 72.55,
+      "label_present": true,
+      "label_value_llm_output": 72.55
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Jenoptik AG-11745/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 56.4,
+      "label_present": true,
+      "label_value_llm_output": 56.4
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Centrotec SE-14642/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.14.pdf",
+      "label_value": 66.97,
+      "label_present": true,
+      "label_value_llm_output": 66.97
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Klöckner & Co SE-1368/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.06.07.pdf",
+      "label_value": 55.09,
+      "label_present": true,
+      "label_value_llm_output": 55.09
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RWE AG-15203/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 19.04.12.pdf",
+      "label_value": 58.06,
+      "label_present": true,
+      "label_value_llm_output": 58.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Nemetschek SE-15031/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.15.pdf",
+      "label_value": 80.1,
+      "label_present": true,
+      "label_value_llm_output": 80.1
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/K+S Aktiengesellschaft-15222/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.11.pdf",
+      "label_value": 54.72,
+      "label_present": true,
+      "label_value_llm_output": 54.72
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/ThyssenKrupp AG-15358/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.01.04.pdf",
+      "label_value": 56.18,
+      "label_present": true,
+      "label_value_llm_output": 56.18
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/United Internet AG-14517/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.05.13.pdf",
+      "label_value": 57.53,
+      "label_present": true,
+      "label_value_llm_output": 57.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/SolarWorld AG i.L.-14526/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 07.08.13.pdf",
+      "label_value": 31.12,
+      "label_present": true,
+      "label_value_llm_output": 31.12
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Praktiker AG-15674/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 29.05.13.pdf",
+      "label_value": 28.53,
+      "label_present": true,
+      "label_value_llm_output": 28.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hochtief AG-14930/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.05.09.pdf",
+      "label_value": 60.91,
+      "label_present": true,
+      "label_value_llm_output": 60.91
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/CEWE Stiftung & Co. KGaA-13084/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 05.06.13.pdf",
+      "label_value": 56.86,
+      "label_present": true,
+      "label_value_llm_output": 56.86
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RHÖN-KLINIKUM AG-15207/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.06.17.pdf",
+      "label_value": 80.96,
+      "label_present": true,
+      "label_value_llm_output": 80.96
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Stada Arzneimittel AG-14737/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.05.12.pdf",
+      "label_value": 34.54,
+      "label_present": true,
+      "label_value_llm_output": 34.54
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PUMA SE-15179/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.04.10.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Sport1 Medien AG-15646/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.07.14.pdf",
+      "label_value": 49.89,
+      "label_present": true,
+      "label_value_llm_output": 49.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Deutsche Beteiligungs AG - DBAG-14721/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 17.02.22.pdf",
+      "label_value": 55.79,
+      "label_present": true,
+      "label_value_llm_output": 55.79
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Continental AG-11427/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.04.09.pdf",
+      "label_value": 71.23,
+      "label_present": true,
+      "label_value_llm_output": 71.23
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Manz AG-15698/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.07.15.pdf",
+      "label_value": 56.06,
+      "label_present": true,
+      "label_value_llm_output": 56.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/comdirect bank AG-14666/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 09.05.12.pdf",
+      "label_value": 84.11,
+      "label_present": true,
+      "label_value_llm_output": 84.11
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius SE & Co. KGaA-14829/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.12.pdf",
+      "label_value": 75.53,
+      "label_present": true,
+      "label_value_llm_output": 75.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Schaltbau Holding AG-15230/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 50.8,
+      "label_present": true,
+      "label_value_llm_output": 50.8
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius Medical Care AG & Co. KGaA-14830/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.10.pdf",
+      "label_value": 74.29,
+      "label_present": true,
+      "label_value_llm_output": 74.29
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PATRIZIA AG-15849/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.06.09.pdf",
+      "label_value": 64.14,
+      "label_present": true,
+      "label_value_llm_output": 64.14
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/elexis AG-14510/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.05.07.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Münchener Rückversicherungs-Gesellschaft AG-15635/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 26.05.04.pdf",
+      "label_value": 44.89,
+      "label_present": true,
+      "label_value_llm_output": 44.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Grenke AG-5318/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 12.05.09.pdf",
+      "label_value": 80.69,
+      "label_present": true,
+      "label_value_llm_output": 80.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Koenig & Bauer AG-14730/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.06.23.pdf",
+      "label_value": 58.69,
+      "label_present": true,
+      "label_value_llm_output": 58.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BayWa AG-14442/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 15.06.11.pdf",
+      "label_value": 70.49,
+      "label_present": true,
+      "label_value_llm_output": 70.49
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/MTU Aero Engines AG-15663/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 08.05.14.pdf",
+      "label_value": 19.48,
+      "label_present": true,
+      "label_value_llm_output": 19.48
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fraport AG (Flughafen Frankfurt a. M. AG)-14731/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 01.06.11.pdf",
+      "label_value": 79.25,
+      "label_present": true,
+      "label_value_llm_output": 79.25
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hannover Rück SE-15619/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 03.05.07.pdf",
+      "label_value": 38.44,
+      "label_present": true,
+      "label_value_llm_output": 38.44
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BASF SE-11193/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 04.05.06.pdf",
+      "label_value": 38.41,
+      "label_present": true,
+      "label_value_llm_output": 38.41
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BAUER AG-14554/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 18.11.22.pdf",
+      "label_value": 72.55,
+      "label_present": true,
+      "label_value_llm_output": 72.55
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Jenoptik AG-11745/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 56.4,
+      "label_present": true,
+      "label_value_llm_output": 56.4
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Centrotec SE-14642/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.14.pdf",
+      "label_value": 66.97,
+      "label_present": true,
+      "label_value_llm_output": 66.97
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Klöckner & Co SE-1368/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.06.07.pdf",
+      "label_value": 55.09,
+      "label_present": true,
+      "label_value_llm_output": 55.09
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RWE AG-15203/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 19.04.12.pdf",
+      "label_value": 58.06,
+      "label_present": true,
+      "label_value_llm_output": 58.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Nemetschek SE-15031/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.15.pdf",
+      "label_value": 80.1,
+      "label_present": true,
+      "label_value_llm_output": 80.1
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/K+S Aktiengesellschaft-15222/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.11.pdf",
+      "label_value": 54.72,
+      "label_present": true,
+      "label_value_llm_output": 54.72
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/ThyssenKrupp AG-15358/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.01.04.pdf",
+      "label_value": 56.18,
+      "label_present": true,
+      "label_value_llm_output": 56.18
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/United Internet AG-14517/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.05.13.pdf",
+      "label_value": 57.53,
+      "label_present": true,
+      "label_value_llm_output": 57.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/SolarWorld AG i.L.-14526/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 07.08.13.pdf",
+      "label_value": 31.12,
+      "label_present": true,
+      "label_value_llm_output": 31.12
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Praktiker AG-15674/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 29.05.13.pdf",
+      "label_value": 28.53,
+      "label_present": true,
+      "label_value_llm_output": 28.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hochtief AG-14930/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.05.09.pdf",
+      "label_value": 60.91,
+      "label_present": true,
+      "label_value_llm_output": 60.91
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/CEWE Stiftung & Co. KGaA-13084/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 05.06.13.pdf",
+      "label_value": 56.86,
+      "label_present": true,
+      "label_value_llm_output": 56.86
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RHÖN-KLINIKUM AG-15207/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.06.17.pdf",
+      "label_value": 80.96,
+      "label_present": true,
+      "label_value_llm_output": 80.96
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Stada Arzneimittel AG-14737/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.05.12.pdf",
+      "label_value": 34.54,
+      "label_present": true,
+      "label_value_llm_output": 34.54
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PUMA SE-15179/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.04.10.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Sport1 Medien AG-15646/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.07.14.pdf",
+      "label_value": 49.89,
+      "label_present": true,
+      "label_value_llm_output": 49.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Deutsche Beteiligungs AG - DBAG-14721/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 17.02.22.pdf",
+      "label_value": 55.79,
+      "label_present": true,
+      "label_value_llm_output": 55.79
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Continental AG-11427/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.04.09.pdf",
+      "label_value": 71.23,
+      "label_present": true,
+      "label_value_llm_output": 71.23
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Manz AG-15698/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.07.15.pdf",
+      "label_value": 56.06,
+      "label_present": true,
+      "label_value_llm_output": 56.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/comdirect bank AG-14666/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 09.05.12.pdf",
+      "label_value": 84.11,
+      "label_present": true,
+      "label_value_llm_output": 84.11
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius SE & Co. KGaA-14829/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.12.pdf",
+      "label_value": 75.53,
+      "label_present": true,
+      "label_value_llm_output": 75.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Schaltbau Holding AG-15230/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 50.8,
+      "label_present": true,
+      "label_value_llm_output": 50.8
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius Medical Care AG & Co. KGaA-14830/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.10.pdf",
+      "label_value": 74.29,
+      "label_present": true,
+      "label_value_llm_output": 74.29
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PATRIZIA AG-15849/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.06.09.pdf",
+      "label_value": 64.14,
+      "label_present": true,
+      "label_value_llm_output": 64.14
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/elexis AG-14510/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.05.07.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Münchener Rückversicherungs-Gesellschaft AG-15635/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 26.05.04.pdf",
+      "label_value": 44.89,
+      "label_present": true,
+      "label_value_llm_output": 44.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Grenke AG-5318/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 12.05.09.pdf",
+      "label_value": 80.69,
+      "label_present": true,
+      "label_value_llm_output": 80.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Koenig & Bauer AG-14730/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.06.23.pdf",
+      "label_value": 58.69,
+      "label_present": true,
+      "label_value_llm_output": 58.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BayWa AG-14442/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 15.06.11.pdf",
+      "label_value": 70.49,
+      "label_present": true,
+      "label_value_llm_output": 70.49
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/MTU Aero Engines AG-15663/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 08.05.14.pdf",
+      "label_value": 19.48,
+      "label_present": true,
+      "label_value_llm_output": 19.48
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fraport AG (Flughafen Frankfurt a. M. AG)-14731/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 01.06.11.pdf",
+      "label_value": 79.25,
+      "label_present": true,
+      "label_value_llm_output": 79.25
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hannover Rück SE-15619/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 03.05.07.pdf",
+      "label_value": 38.44,
+      "label_present": true,
+      "label_value_llm_output": 38.44
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BASF SE-11193/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 04.05.06.pdf",
+      "label_value": 38.41,
+      "label_present": true,
+      "label_value_llm_output": 38.41
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BAUER AG-14554/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 18.11.22.pdf",
+      "label_value": 72.55,
+      "label_present": true,
+      "label_value_llm_output": 72.55
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Jenoptik AG-11745/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 56.4,
+      "label_present": true,
+      "label_value_llm_output": 56.4
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Centrotec SE-14642/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.14.pdf",
+      "label_value": 66.97,
+      "label_present": true,
+      "label_value_llm_output": 66.97
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Klöckner & Co SE-1368/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.06.07.pdf",
+      "label_value": 55.09,
+      "label_present": true,
+      "label_value_llm_output": 55.09
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RWE AG-15203/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 19.04.12.pdf",
+      "label_value": 58.06,
+      "label_present": true,
+      "label_value_llm_output": 58.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Nemetschek SE-15031/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.15.pdf",
+      "label_value": 80.1,
+      "label_present": true,
+      "label_value_llm_output": 80.1
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/K+S Aktiengesellschaft-15222/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.11.pdf",
+      "label_value": 54.72,
+      "label_present": true,
+      "label_value_llm_output": 54.72
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/ThyssenKrupp AG-15358/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.01.04.pdf",
+      "label_value": 56.18,
+      "label_present": true,
+      "label_value_llm_output": 56.18
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/United Internet AG-14517/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.05.13.pdf",
+      "label_value": 57.53,
+      "label_present": true,
+      "label_value_llm_output": 57.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/SolarWorld AG i.L.-14526/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 07.08.13.pdf",
+      "label_value": 31.12,
+      "label_present": true,
+      "label_value_llm_output": 31.12
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Praktiker AG-15674/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 29.05.13.pdf",
+      "label_value": 28.53,
+      "label_present": true,
+      "label_value_llm_output": 28.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hochtief AG-14930/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.05.09.pdf",
+      "label_value": 60.91,
+      "label_present": true,
+      "label_value_llm_output": 60.91
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/CEWE Stiftung & Co. KGaA-13084/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 05.06.13.pdf",
+      "label_value": 56.86,
+      "label_present": true,
+      "label_value_llm_output": 56.86
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RHÖN-KLINIKUM AG-15207/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.06.17.pdf",
+      "label_value": 80.96,
+      "label_present": true,
+      "label_value_llm_output": 80.96
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Stada Arzneimittel AG-14737/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.05.12.pdf",
+      "label_value": 34.54,
+      "label_present": true,
+      "label_value_llm_output": 34.54
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PUMA SE-15179/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.04.10.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Sport1 Medien AG-15646/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.07.14.pdf",
+      "label_value": 49.89,
+      "label_present": true,
+      "label_value_llm_output": 49.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Deutsche Beteiligungs AG - DBAG-14721/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 17.02.22.pdf",
+      "label_value": 55.79,
+      "label_present": true,
+      "label_value_llm_output": 55.79
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Continental AG-11427/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.04.09.pdf",
+      "label_value": 71.23,
+      "label_present": true,
+      "label_value_llm_output": 71.23
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Manz AG-15698/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.07.15.pdf",
+      "label_value": 56.06,
+      "label_present": true,
+      "label_value_llm_output": 56.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/comdirect bank AG-14666/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 09.05.12.pdf",
+      "label_value": 84.11,
+      "label_present": true,
+      "label_value_llm_output": 84.11
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius SE & Co. KGaA-14829/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.12.pdf",
+      "label_value": 75.53,
+      "label_present": true,
+      "label_value_llm_output": 75.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Schaltbau Holding AG-15230/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 50.8,
+      "label_present": true,
+      "label_value_llm_output": 50.8
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius Medical Care AG & Co. KGaA-14830/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.10.pdf",
+      "label_value": 74.29,
+      "label_present": true,
+      "label_value_llm_output": 74.29
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PATRIZIA AG-15849/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.06.09.pdf",
+      "label_value": 64.14,
+      "label_present": true,
+      "label_value_llm_output": 64.14
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/elexis AG-14510/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.05.07.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Münchener Rückversicherungs-Gesellschaft AG-15635/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 26.05.04.pdf",
+      "label_value": 44.89,
+      "label_present": true,
+      "label_value_llm_output": 44.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Grenke AG-5318/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 12.05.09.pdf",
+      "label_value": 80.69,
+      "label_present": true,
+      "label_value_llm_output": 80.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Koenig & Bauer AG-14730/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.06.23.pdf",
+      "label_value": 58.69,
+      "label_present": true,
+      "label_value_llm_output": 58.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BayWa AG-14442/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 15.06.11.pdf",
+      "label_value": 70.49,
+      "label_present": true,
+      "label_value_llm_output": 70.49
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/MTU Aero Engines AG-15663/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 08.05.14.pdf",
+      "label_value": 19.48,
+      "label_present": true,
+      "label_value_llm_output": 19.48
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fraport AG (Flughafen Frankfurt a. M. AG)-14731/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 01.06.11.pdf",
+      "label_value": 79.25,
+      "label_present": true,
+      "label_value_llm_output": 79.25
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hannover Rück SE-15619/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 03.05.07.pdf",
+      "label_value": 38.44,
+      "label_present": true,
+      "label_value_llm_output": 38.44
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BASF SE-11193/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 04.05.06.pdf",
+      "label_value": 38.41,
+      "label_present": true,
+      "label_value_llm_output": 38.41
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BAUER AG-14554/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 18.11.22.pdf",
+      "label_value": 72.55,
+      "label_present": true,
+      "label_value_llm_output": 72.55
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Jenoptik AG-11745/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 56.4,
+      "label_present": true,
+      "label_value_llm_output": 56.4
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Centrotec SE-14642/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.14.pdf",
+      "label_value": 66.97,
+      "label_present": true,
+      "label_value_llm_output": 66.97
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Klöckner & Co SE-1368/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.06.07.pdf",
+      "label_value": 55.09,
+      "label_present": true,
+      "label_value_llm_output": 55.09
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RWE AG-15203/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 19.04.12.pdf",
+      "label_value": 58.06,
+      "label_present": true,
+      "label_value_llm_output": 58.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Nemetschek SE-15031/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.15.pdf",
+      "label_value": 80.1,
+      "label_present": true,
+      "label_value_llm_output": 80.1
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/K+S Aktiengesellschaft-15222/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.11.pdf",
+      "label_value": 54.72,
+      "label_present": true,
+      "label_value_llm_output": 54.72
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/ThyssenKrupp AG-15358/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.01.04.pdf",
+      "label_value": 56.18,
+      "label_present": true,
+      "label_value_llm_output": 56.18
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/United Internet AG-14517/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.05.13.pdf",
+      "label_value": 57.53,
+      "label_present": true,
+      "label_value_llm_output": 57.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/SolarWorld AG i.L.-14526/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 07.08.13.pdf",
+      "label_value": 31.12,
+      "label_present": true,
+      "label_value_llm_output": 31.12
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Praktiker AG-15674/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 29.05.13.pdf",
+      "label_value": 28.53,
+      "label_present": true,
+      "label_value_llm_output": 28.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hochtief AG-14930/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.05.09.pdf",
+      "label_value": 60.91,
+      "label_present": true,
+      "label_value_llm_output": 60.91
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/CEWE Stiftung & Co. KGaA-13084/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 05.06.13.pdf",
+      "label_value": 56.86,
+      "label_present": true,
+      "label_value_llm_output": 56.86
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RHÖN-KLINIKUM AG-15207/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.06.17.pdf",
+      "label_value": 80.96,
+      "label_present": true,
+      "label_value_llm_output": 80.96
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Stada Arzneimittel AG-14737/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.05.12.pdf",
+      "label_value": 34.54,
+      "label_present": true,
+      "label_value_llm_output": 34.54
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PUMA SE-15179/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.04.10.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Sport1 Medien AG-15646/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.07.14.pdf",
+      "label_value": 49.89,
+      "label_present": true,
+      "label_value_llm_output": 49.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Deutsche Beteiligungs AG - DBAG-14721/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 17.02.22.pdf",
+      "label_value": 55.79,
+      "label_present": true,
+      "label_value_llm_output": 55.79
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Continental AG-11427/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.04.09.pdf",
+      "label_value": 71.23,
+      "label_present": true,
+      "label_value_llm_output": 71.23
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Manz AG-15698/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.07.15.pdf",
+      "label_value": 56.06,
+      "label_present": true,
+      "label_value_llm_output": 56.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/comdirect bank AG-14666/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 09.05.12.pdf",
+      "label_value": 84.11,
+      "label_present": true,
+      "label_value_llm_output": 84.11
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius SE & Co. KGaA-14829/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.12.pdf",
+      "label_value": 75.53,
+      "label_present": true,
+      "label_value_llm_output": 75.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Schaltbau Holding AG-15230/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 50.8,
+      "label_present": true,
+      "label_value_llm_output": 50.8
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius Medical Care AG & Co. KGaA-14830/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.10.pdf",
+      "label_value": 74.29,
+      "label_present": true,
+      "label_value_llm_output": 74.29
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PATRIZIA AG-15849/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.06.09.pdf",
+      "label_value": 64.14,
+      "label_present": true,
+      "label_value_llm_output": 64.14
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/elexis AG-14510/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.05.07.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Münchener Rückversicherungs-Gesellschaft AG-15635/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 26.05.04.pdf",
+      "label_value": 44.89,
+      "label_present": true,
+      "label_value_llm_output": 44.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Grenke AG-5318/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 12.05.09.pdf",
+      "label_value": 80.69,
+      "label_present": true,
+      "label_value_llm_output": 80.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Koenig & Bauer AG-14730/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.06.23.pdf",
+      "label_value": 58.69,
+      "label_present": true,
+      "label_value_llm_output": 58.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BayWa AG-14442/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 15.06.11.pdf",
+      "label_value": 70.49,
+      "label_present": true,
+      "label_value_llm_output": 70.49
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/MTU Aero Engines AG-15663/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 08.05.14.pdf",
+      "label_value": 19.48,
+      "label_present": true,
+      "label_value_llm_output": 19.48
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fraport AG (Flughafen Frankfurt a. M. AG)-14731/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 01.06.11.pdf",
+      "label_value": 79.25,
+      "label_present": true,
+      "label_value_llm_output": 79.25
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hannover Rück SE-15619/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 03.05.07.pdf",
+      "label_value": 38.44,
+      "label_present": true,
+      "label_value_llm_output": 38.44
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BASF SE-11193/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 04.05.06.pdf",
+      "label_value": 38.41,
+      "label_present": true,
+      "label_value_llm_output": 38.41
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BAUER AG-14554/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 18.11.22.pdf",
+      "label_value": 72.55,
+      "label_present": true,
+      "label_value_llm_output": 72.55
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Jenoptik AG-11745/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 56.4,
+      "label_present": true,
+      "label_value_llm_output": 56.4
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Centrotec SE-14642/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.14.pdf",
+      "label_value": 66.97,
+      "label_present": true,
+      "label_value_llm_output": 66.97
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Klöckner & Co SE-1368/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.06.07.pdf",
+      "label_value": 55.09,
+      "label_present": true,
+      "label_value_llm_output": 55.09
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RWE AG-15203/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 19.04.12.pdf",
+      "label_value": 58.06,
+      "label_present": true,
+      "label_value_llm_output": 58.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Nemetschek SE-15031/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.15.pdf",
+      "label_value": 80.1,
+      "label_present": true,
+      "label_value_llm_output": 80.1
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/K+S Aktiengesellschaft-15222/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.11.pdf",
+      "label_value": 54.72,
+      "label_present": true,
+      "label_value_llm_output": 54.72
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/ThyssenKrupp AG-15358/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.01.04.pdf",
+      "label_value": 56.18,
+      "label_present": true,
+      "label_value_llm_output": 56.18
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/United Internet AG-14517/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.05.13.pdf",
+      "label_value": 57.53,
+      "label_present": true,
+      "label_value_llm_output": 57.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/SolarWorld AG i.L.-14526/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 07.08.13.pdf",
+      "label_value": 31.12,
+      "label_present": true,
+      "label_value_llm_output": 31.12
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Praktiker AG-15674/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 29.05.13.pdf",
+      "label_value": 28.53,
+      "label_present": true,
+      "label_value_llm_output": 28.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hochtief AG-14930/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.05.09.pdf",
+      "label_value": 60.91,
+      "label_present": true,
+      "label_value_llm_output": 60.91
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/CEWE Stiftung & Co. KGaA-13084/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 05.06.13.pdf",
+      "label_value": 56.86,
+      "label_present": true,
+      "label_value_llm_output": 56.86
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RHÖN-KLINIKUM AG-15207/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.06.17.pdf",
+      "label_value": 80.96,
+      "label_present": true,
+      "label_value_llm_output": 80.96
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Stada Arzneimittel AG-14737/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.05.12.pdf",
+      "label_value": 34.54,
+      "label_present": true,
+      "label_value_llm_output": 34.54
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PUMA SE-15179/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.04.10.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Sport1 Medien AG-15646/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.07.14.pdf",
+      "label_value": 49.89,
+      "label_present": true,
+      "label_value_llm_output": 49.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Deutsche Beteiligungs AG - DBAG-14721/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 17.02.22.pdf",
+      "label_value": 55.79,
+      "label_present": true,
+      "label_value_llm_output": 55.79
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Continental AG-11427/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.04.09.pdf",
+      "label_value": 71.23,
+      "label_present": true,
+      "label_value_llm_output": 71.23
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Manz AG-15698/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.07.15.pdf",
+      "label_value": 56.06,
+      "label_present": true,
+      "label_value_llm_output": 56.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/comdirect bank AG-14666/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 09.05.12.pdf",
+      "label_value": 84.11,
+      "label_present": true,
+      "label_value_llm_output": 84.11
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius SE & Co. KGaA-14829/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.12.pdf",
+      "label_value": 75.53,
+      "label_present": true,
+      "label_value_llm_output": 75.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Schaltbau Holding AG-15230/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 50.8,
+      "label_present": true,
+      "label_value_llm_output": 50.8
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius Medical Care AG & Co. KGaA-14830/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.10.pdf",
+      "label_value": 74.29,
+      "label_present": true,
+      "label_value_llm_output": 74.29
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PATRIZIA AG-15849/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.06.09.pdf",
+      "label_value": 64.14,
+      "label_present": true,
+      "label_value_llm_output": 64.14
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/elexis AG-14510/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.05.07.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Münchener Rückversicherungs-Gesellschaft AG-15635/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 26.05.04.pdf",
+      "label_value": 44.89,
+      "label_present": true,
+      "label_value_llm_output": 44.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Grenke AG-5318/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 12.05.09.pdf",
+      "label_value": 80.69,
+      "label_present": true,
+      "label_value_llm_output": 80.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Koenig & Bauer AG-14730/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.06.23.pdf",
+      "label_value": 58.69,
+      "label_present": true,
+      "label_value_llm_output": 58.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BayWa AG-14442/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 15.06.11.pdf",
+      "label_value": 70.49,
+      "label_present": true,
+      "label_value_llm_output": 70.49
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/MTU Aero Engines AG-15663/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 08.05.14.pdf",
+      "label_value": 19.48,
+      "label_present": true,
+      "label_value_llm_output": 19.48
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fraport AG (Flughafen Frankfurt a. M. AG)-14731/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 01.06.11.pdf",
+      "label_value": 79.25,
+      "label_present": true,
+      "label_value_llm_output": 79.25
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hannover Rück SE-15619/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 03.05.07.pdf",
+      "label_value": 38.44,
+      "label_present": true,
+      "label_value_llm_output": 38.44
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BASF SE-11193/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 04.05.06.pdf",
+      "label_value": 38.41,
+      "label_present": true,
+      "label_value_llm_output": 38.41
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BAUER AG-14554/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 18.11.22.pdf",
+      "label_value": 72.55,
+      "label_present": true,
+      "label_value_llm_output": 72.55
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Jenoptik AG-11745/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 56.4,
+      "label_present": true,
+      "label_value_llm_output": 56.4
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Centrotec SE-14642/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.14.pdf",
+      "label_value": 66.97,
+      "label_present": true,
+      "label_value_llm_output": 66.97
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Klöckner & Co SE-1368/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.06.07.pdf",
+      "label_value": 55.09,
+      "label_present": true,
+      "label_value_llm_output": 55.09
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RWE AG-15203/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 19.04.12.pdf",
+      "label_value": 58.06,
+      "label_present": true,
+      "label_value_llm_output": 58.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Nemetschek SE-15031/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.15.pdf",
+      "label_value": 80.1,
+      "label_present": true,
+      "label_value_llm_output": 80.1
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/K+S Aktiengesellschaft-15222/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.11.pdf",
+      "label_value": 54.72,
+      "label_present": true,
+      "label_value_llm_output": 54.72
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/ThyssenKrupp AG-15358/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.01.04.pdf",
+      "label_value": 56.18,
+      "label_present": true,
+      "label_value_llm_output": 56.18
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/United Internet AG-14517/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.05.13.pdf",
+      "label_value": 57.53,
+      "label_present": true,
+      "label_value_llm_output": 57.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/SolarWorld AG i.L.-14526/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 07.08.13.pdf",
+      "label_value": 31.12,
+      "label_present": true,
+      "label_value_llm_output": 31.12
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Praktiker AG-15674/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 29.05.13.pdf",
+      "label_value": 28.53,
+      "label_present": true,
+      "label_value_llm_output": 28.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hochtief AG-14930/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.05.09.pdf",
+      "label_value": 60.91,
+      "label_present": true,
+      "label_value_llm_output": 60.91
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/CEWE Stiftung & Co. KGaA-13084/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 05.06.13.pdf",
+      "label_value": 56.86,
+      "label_present": true,
+      "label_value_llm_output": 56.86
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RHÖN-KLINIKUM AG-15207/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.06.17.pdf",
+      "label_value": 80.96,
+      "label_present": true,
+      "label_value_llm_output": 80.96
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Stada Arzneimittel AG-14737/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.05.12.pdf",
+      "label_value": 34.54,
+      "label_present": true,
+      "label_value_llm_output": 34.54
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PUMA SE-15179/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.04.10.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Sport1 Medien AG-15646/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.07.14.pdf",
+      "label_value": 49.89,
+      "label_present": true,
+      "label_value_llm_output": 49.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Deutsche Beteiligungs AG - DBAG-14721/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 17.02.22.pdf",
+      "label_value": 55.79,
+      "label_present": true,
+      "label_value_llm_output": 55.79
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Continental AG-11427/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.04.09.pdf",
+      "label_value": 71.23,
+      "label_present": true,
+      "label_value_llm_output": 71.23
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Manz AG-15698/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.07.15.pdf",
+      "label_value": 56.06,
+      "label_present": true,
+      "label_value_llm_output": 56.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/comdirect bank AG-14666/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 09.05.12.pdf",
+      "label_value": 84.11,
+      "label_present": true,
+      "label_value_llm_output": 84.11
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius SE & Co. KGaA-14829/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.12.pdf",
+      "label_value": 75.53,
+      "label_present": true,
+      "label_value_llm_output": 75.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Schaltbau Holding AG-15230/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 50.8,
+      "label_present": true,
+      "label_value_llm_output": 50.8
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius Medical Care AG & Co. KGaA-14830/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.10.pdf",
+      "label_value": 74.29,
+      "label_present": true,
+      "label_value_llm_output": 74.29
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PATRIZIA AG-15849/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.06.09.pdf",
+      "label_value": 64.14,
+      "label_present": true,
+      "label_value_llm_output": 64.14
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/elexis AG-14510/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.05.07.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Münchener Rückversicherungs-Gesellschaft AG-15635/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 26.05.04.pdf",
+      "label_value": 44.89,
+      "label_present": true,
+      "label_value_llm_output": 44.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Grenke AG-5318/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 12.05.09.pdf",
+      "label_value": 80.69,
+      "label_present": true,
+      "label_value_llm_output": 80.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Koenig & Bauer AG-14730/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.06.23.pdf",
+      "label_value": 58.69,
+      "label_present": true,
+      "label_value_llm_output": 58.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BayWa AG-14442/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 15.06.11.pdf",
+      "label_value": 70.49,
+      "label_present": true,
+      "label_value_llm_output": 70.49
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/MTU Aero Engines AG-15663/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 08.05.14.pdf",
+      "label_value": 19.48,
+      "label_present": true,
+      "label_value_llm_output": 19.48
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fraport AG (Flughafen Frankfurt a. M. AG)-14731/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 01.06.11.pdf",
+      "label_value": 79.25,
+      "label_present": true,
+      "label_value_llm_output": 79.25
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hannover Rück SE-15619/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 03.05.07.pdf",
+      "label_value": 38.44,
+      "label_present": true,
+      "label_value_llm_output": 38.44
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BASF SE-11193/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 04.05.06.pdf",
+      "label_value": 38.41,
+      "label_present": true,
+      "label_value_llm_output": 38.41
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BAUER AG-14554/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 18.11.22.pdf",
+      "label_value": 72.55,
+      "label_present": true,
+      "label_value_llm_output": 72.55
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Jenoptik AG-11745/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 56.4,
+      "label_present": true,
+      "label_value_llm_output": 56.4
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Centrotec SE-14642/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.14.pdf",
+      "label_value": 66.97,
+      "label_present": true,
+      "label_value_llm_output": 66.97
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Klöckner & Co SE-1368/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.06.07.pdf",
+      "label_value": 55.09,
+      "label_present": true,
+      "label_value_llm_output": 55.09
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RWE AG-15203/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 19.04.12.pdf",
+      "label_value": 58.06,
+      "label_present": true,
+      "label_value_llm_output": 58.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Nemetschek SE-15031/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.15.pdf",
+      "label_value": 80.1,
+      "label_present": true,
+      "label_value_llm_output": 80.1
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/K+S Aktiengesellschaft-15222/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.11.pdf",
+      "label_value": 54.72,
+      "label_present": true,
+      "label_value_llm_output": 54.72
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/ThyssenKrupp AG-15358/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.01.04.pdf",
+      "label_value": 56.18,
+      "label_present": true,
+      "label_value_llm_output": 56.18
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/United Internet AG-14517/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.05.13.pdf",
+      "label_value": 57.53,
+      "label_present": true,
+      "label_value_llm_output": 57.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/SolarWorld AG i.L.-14526/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 07.08.13.pdf",
+      "label_value": 31.12,
+      "label_present": true,
+      "label_value_llm_output": 31.12
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Praktiker AG-15674/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 29.05.13.pdf",
+      "label_value": 28.53,
+      "label_present": true,
+      "label_value_llm_output": 28.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hochtief AG-14930/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.05.09.pdf",
+      "label_value": 60.91,
+      "label_present": true,
+      "label_value_llm_output": 60.91
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/CEWE Stiftung & Co. KGaA-13084/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 05.06.13.pdf",
+      "label_value": 56.86,
+      "label_present": true,
+      "label_value_llm_output": 56.86
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RHÖN-KLINIKUM AG-15207/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.06.17.pdf",
+      "label_value": 80.96,
+      "label_present": true,
+      "label_value_llm_output": 80.96
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Stada Arzneimittel AG-14737/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.05.12.pdf",
+      "label_value": 34.54,
+      "label_present": true,
+      "label_value_llm_output": 34.54
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PUMA SE-15179/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.04.10.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Sport1 Medien AG-15646/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.07.14.pdf",
+      "label_value": 49.89,
+      "label_present": true,
+      "label_value_llm_output": 49.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Deutsche Beteiligungs AG - DBAG-14721/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 17.02.22.pdf",
+      "label_value": 55.79,
+      "label_present": true,
+      "label_value_llm_output": 55.79
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Continental AG-11427/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.04.09.pdf",
+      "label_value": 71.23,
+      "label_present": true,
+      "label_value_llm_output": 71.23
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Manz AG-15698/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.07.15.pdf",
+      "label_value": 56.06,
+      "label_present": true,
+      "label_value_llm_output": 56.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/comdirect bank AG-14666/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 09.05.12.pdf",
+      "label_value": 84.11,
+      "label_present": true,
+      "label_value_llm_output": 84.11
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius SE & Co. KGaA-14829/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.12.pdf",
+      "label_value": 75.53,
+      "label_present": true,
+      "label_value_llm_output": 75.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Schaltbau Holding AG-15230/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 50.8,
+      "label_present": true,
+      "label_value_llm_output": 50.8
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fresenius Medical Care AG & Co. KGaA-14830/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.10.pdf",
+      "label_value": 74.29,
+      "label_present": true,
+      "label_value_llm_output": 74.29
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PATRIZIA AG-15849/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.06.09.pdf",
+      "label_value": 64.14,
+      "label_present": true,
+      "label_value_llm_output": 64.14
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/elexis AG-14510/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.05.07.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Münchener Rückversicherungs-Gesellschaft AG-15635/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 26.05.04.pdf",
+      "label_value": 44.89,
+      "label_present": true,
+      "label_value_llm_output": 44.89
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Grenke AG-5318/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 12.05.09.pdf",
+      "label_value": 80.69,
+      "label_present": true,
+      "label_value_llm_output": 80.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Koenig & Bauer AG-14730/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 16.06.23.pdf",
+      "label_value": 58.69,
+      "label_present": true,
+      "label_value_llm_output": 58.69
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BayWa AG-14442/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 15.06.11.pdf",
+      "label_value": 70.49,
+      "label_present": true,
+      "label_value_llm_output": 70.49
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/MTU Aero Engines AG-15663/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 08.05.14.pdf",
+      "label_value": 19.48,
+      "label_present": true,
+      "label_value_llm_output": 19.48
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Fraport AG (Flughafen Frankfurt a. M. AG)-14731/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 01.06.11.pdf",
+      "label_value": 79.25,
+      "label_present": true,
+      "label_value_llm_output": 79.25
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hannover Rück SE-15619/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 03.05.07.pdf",
+      "label_value": 38.44,
+      "label_present": true,
+      "label_value_llm_output": 38.44
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BASF SE-11193/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 04.05.06.pdf",
+      "label_value": 38.41,
+      "label_present": true,
+      "label_value_llm_output": 38.41
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/BAUER AG-14554/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 18.11.22.pdf",
+      "label_value": 72.55,
+      "label_present": true,
+      "label_value_llm_output": 72.55
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Jenoptik AG-11745/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 06.06.12.pdf",
+      "label_value": 56.4,
+      "label_present": true,
+      "label_value_llm_output": 56.4
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Centrotec SE-14642/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.14.pdf",
+      "label_value": 66.97,
+      "label_present": true,
+      "label_value_llm_output": 66.97
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Klöckner & Co SE-1368/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.06.07.pdf",
+      "label_value": 55.09,
+      "label_present": true,
+      "label_value_llm_output": 55.09
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RWE AG-15203/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 19.04.12.pdf",
+      "label_value": 58.06,
+      "label_present": true,
+      "label_value_llm_output": 58.06
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Nemetschek SE-15031/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.05.15.pdf",
+      "label_value": 80.1,
+      "label_present": true,
+      "label_value_llm_output": 80.1
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/K+S Aktiengesellschaft-15222/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 11.05.11.pdf",
+      "label_value": 54.72,
+      "label_present": true,
+      "label_value_llm_output": 54.72
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/ThyssenKrupp AG-15358/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.01.04.pdf",
+      "label_value": 56.18,
+      "label_present": true,
+      "label_value_llm_output": 56.18
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/United Internet AG-14517/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 23.05.13.pdf",
+      "label_value": 57.53,
+      "label_present": true,
+      "label_value_llm_output": 57.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/SolarWorld AG i.L.-14526/ASM/HV-Beschluss zur außerordentlichen Hauptversammlung am 07.08.13.pdf",
+      "label_value": 31.12,
+      "label_present": true,
+      "label_value_llm_output": 31.12
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Praktiker AG-15674/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 29.05.13.pdf",
+      "label_value": 28.53,
+      "label_present": true,
+      "label_value_llm_output": 28.53
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Hochtief AG-14930/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.05.09.pdf",
+      "label_value": 60.91,
+      "label_present": true,
+      "label_value_llm_output": 60.91
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/CEWE Stiftung & Co. KGaA-13084/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 05.06.13.pdf",
+      "label_value": 56.86,
+      "label_present": true,
+      "label_value_llm_output": 56.86
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/RHÖN-KLINIKUM AG-15207/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 07.06.17.pdf",
+      "label_value": 80.96,
+      "label_present": true,
+      "label_value_llm_output": 80.96
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Stada Arzneimittel AG-14737/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.05.12.pdf",
+      "label_value": 34.54,
+      "label_present": true,
+      "label_value_llm_output": 34.54
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/PUMA SE-15179/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 20.04.10.pdf",
+      "label_value": null,
+      "label_present": false,
+      "label_value_llm_output": -1.0
+    },
+    {
+      "file_path": "data/Praesenzen_hv-info/Sport1 Medien AG-15646/ASM/HV-Beschluss zur ordentlichen Hauptversammlung am 30.07.14.pdf",
+      "label_value": 49.89,
+      "label_present": true,
+      "label_value_llm_output": 49.89
+    }
+  ]
+}
